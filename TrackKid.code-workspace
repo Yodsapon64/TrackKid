@@ -1,0 +1,38 @@
+{
+	"folders": [
+		{
+			"path": "../../../Final Project"
+		},
+		{
+			"name": "nv-webblog67",
+			"path": "../../../nv-webblog67"
+		},
+		{
+			"path": "../../../Final"
+		},
+		{
+			"name": "nv-webblog67-1",
+			"path": "../../../nv-webblog67-1"
+		},
+		{
+			"name": "FinalStudyProject",
+			"path": "../../../FinalStudyProject"
+		},
+		{
+			"path": "../../../NodeJS-midterm66"
+		},
+		{
+			"path": "../../../NodeJS-midterm67"
+		},
+		{
+			"path": "../../../xampp/htdocs/TrackKids"
+		},
+		{
+			"name": "finalP1",
+			"path": "../../../finalP1"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Final"
+	}
+}

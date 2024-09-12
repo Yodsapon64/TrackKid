@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="Css/login.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+    <script src="login.js" defer></script>
     <title>Login Page</title>
 </head>
 <body>
@@ -49,62 +51,44 @@
             </ul>
         </div>
     </footer>
+
+    <?php
+    // เชื่อมต่อฐานข้อมูล
+    require_once 'connect.php';
+
+    // ถ้ามีค่าส่งมาจากฟอร์ม
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
+        // ประกาศตัวแปรรับค่าจากฟอร์ม
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        // ตรวจสอบ username และ password
+        $stmt = $conn->prepare("SELECT id, email, password FROM user WHERE username = :username");
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // ถ้าเจอ username ในฐานข้อมูล
+        if ($stmt->rowCount() == 1) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            // ตรวจสอบรหัสผ่าน
+            if (password_verify($password, $row['password'])) {
+                // สร้างตัวแปร session
+                $_SESSION['id'] = $row['id'];
+                $_SESSION['email'] = $row['email'];
+
+                // กระโดดไปหน้าหลัก
+                header('Location: main.php');
+                exit();
+            } else {
+                echo '<input type="hidden" id="messageType" value="warning">';
+                echo '<input type="hidden" id="messageText" value="Password ไม่ถูกต้อง ลองใหม่อีกครั้ง">';
+            }
+        } else {
+            echo '<input type="hidden" id="messageType" value="warning">';
+            echo '<input type="hidden" id="messageText" value="Username หรือ Password ไม่ถูกต้อง ลองใหม่อีกครั้ง">';
+        }
+    }
+    ?>
 </body>
 </html>
-
-<?php
-// เชื่อมต่อฐานข้อมูล
-require_once 'connect.php';
-
-// ถ้ามีค่าส่งมาจากฟอร์ม
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
-    // ประกาศตัวแปรรับค่าจากฟอร์ม
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // ตรวจสอบ username และ password
-    $stmt = $conn->prepare("SELECT id, email, password FROM user WHERE username = :username");
-    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-    $stmt->execute();
-
-    // ถ้าเจอ username ในฐานข้อมูล
-    if ($stmt->rowCount() == 1) {
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        // ตรวจสอบรหัสผ่าน
-        if (password_verify($password, $row['password'])) {
-            // สร้างตัวแปร session
-            $_SESSION['id'] = $row['id'];
-            $_SESSION['email'] = $row['email'];
-
-            // กระโดดไปหน้าหลัก
-            header('Location: main.php');
-            exit();
-        } else {
-            echo '<script>
-                setTimeout(function() {
-                    swal({
-                        title: "เกิดข้อผิดพลาด",
-                        text: "Password ไม่ถูกต้อง ลองใหม่อีกครั้ง",
-                        type: "warning"
-                    }, function() {
-                        window.location = "login.php";
-                    });
-                }, 1000);
-            </script>';
-        }
-    } else {
-        echo '<script>
-            setTimeout(function() {
-                swal({
-                    title: "เกิดข้อผิดพลาด",
-                    text: "Username หรือ Password ไม่ถูกต้อง ลองใหม่อีกครั้ง",
-                    type: "warning"
-                }, function() {
-                    window.location = "login.php";
-                });
-            }, 1000);
-        </script>';
-    }
-}
-?>
