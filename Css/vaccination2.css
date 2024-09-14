@@ -1,0 +1,228 @@
+/* การตั้งค่าเริ่มต้น */
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif; /* เพิ่มฟอนต์ให้ดูเป็นกันเองมากขึ้น */
+        }
+        
+        body {
+            background-color: #f5f5f5; /* เพิ่มสีพื้นหลังที่อ่อนโยน */
+        }
+        
+        /* การออกแบบ Topbar */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px; /* Reduce the padding for a smaller topbar */
+            background-color: rgb(54, 54, 54);
+            margin: 8px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            height: 60px; /* Set a fixed height for a consistent topbar size */
+        }
+        
+        .logo a {
+            text-decoration: none;
+            font-size: 18px; /* Adjust font size to fit smaller topbar */
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .menu {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            margin: 0; /* Ensure no extra spacing */
+        }
+        
+        .menu li {
+            margin-left: 15px; /* Reduce margin between menu items */
+        }
+        
+        .menu li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .menu li a:hover {
+            color: #ff790b;
+        }
+        
+        .menu li .list-group-item-danger {
+            background-color: #d9534f;
+            border: none;
+            padding: 8px 16px; /* Adjusted padding */
+            font-size: 0.9em; /* Adjusted font size */
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu li .list-group-item-danger:hover {
+            background-color: #ffffff;
+            transform: scale(1.05);
+        }
+        
+        /* การออกแบบ Main Content */
+        .content {
+            padding: 20px;
+            background-color: #fff;
+            margin: 0 8px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .vaccination-info h1 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .vaccination-info p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .vaccine-list {
+            margin-top: 20px;
+        }
+        
+        .vaccine-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd; /* กรอบสีอ่อน */
+            border-radius: 8px;
+            background-color: #f9f9f9; /* สีพื้นหลังอ่อน */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .vaccine-item h2 {
+            font-size: 1.5em;
+            color: #ff790b;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ddd; /* ขีดเส้นขั้นด้านล่างของหัวข้อ */
+            padding-bottom: 10px;
+        }
+        
+        .vaccine-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .vaccine-item ul li {
+            font-size: 1em;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        
+        .vaccine-tips {
+            margin-top: 30px;
+        }
+        
+        .vaccine-tips h2 {
+            font-size: 1.5em;
+            color: #ff790b;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ddd; /* ขีดเส้นขั้นด้านล่างของหัวข้อ */
+            padding-bottom: 10px;
+        }
+        
+        .vaccine-tips ul {
+            list-style: disc;
+            margin-left: 20px;
+        }
+        
+        .vaccine-tips ul li {
+            font-size: 1em;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        
+        /* การออกแบบ Footer */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: auto;
+        }
+        
+        .footer-section {
+            margin: 20px;
+            flex: 1;
+        }
+        
+        .footer-section h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        
+        .footer-section p, .footer-section ul, .footer-section form {
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            text-decoration: none;
+            color: #ff790b;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #e06805;
+        }
+        
+        .footer-section form input, .footer-section form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        .footer-section form button {
+            background-color: #ff790b;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .footer-section form button:hover {
+            background-color: #e06805;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            background-color: #222;
+        }
+        

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us Page</title>
-    <link rel="stylesheet" href="Css/about.css">
+    <link rel="stylesheet" href="Css/about2.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
@@ -15,11 +15,12 @@
             <a href="main.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
         </div>
         <ul class="menu">
-            <li><a href="main.php">หน้าหลัก</a></li>
-            <li><a href="about2.php">เกี่ยวกับเรา</a></li>
-            <li><a href="#">ข้อมูลภาวะโภชนาการ</a></li>
-            <li><a href="#">ข้อมูลวัคซีน</a></li>
-            <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
+        <li><a href="main.php">หน้าหลัก</a></li>
+                <li><a href="about2.php">เกี่ยวกับเรา</a></li>
+                <li><a href="#">ข้อมูลภาวะโภชนาการ</a></li>
+                <li><a href="#">ข้อมูลวัคซีน</a></li>
+                <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
+                <li><a href="logout.php" class="list-group-item list-group-item-danger" onclick="return confirm('ยืนยันการออกจากระบบ');">ออกจากระบบ</a></li>
         </ul>
     </div>
     

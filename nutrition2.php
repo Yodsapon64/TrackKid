@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ข้อมูลโภชนาการในเด็ก</title>
-    <link rel="stylesheet" href="Css/nutrition.css"> <!-- เชื่อมไฟล์ CSS ที่แยกออกมา -->
+    <link rel="stylesheet" href="Css/nutrition2.css"> <!-- เชื่อมไฟล์ CSS ที่แยกออกมา -->
 </head>
 <body>
 
@@ -13,11 +13,12 @@
             <a href="mainphp">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
         </div>
         <ul class="menu">
-            <li><a href="main.php">หน้าหลัก</a></li>
-            <li><a href="about2.php">เกี่ยวกับเรา</a></li>
-            <li><a href="#">ข้อมูลภาวะโภชนาการ</a></li>
-            <li><a href="#">ข้อมูลวัคซีน</a></li>
-            <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
+        <li><a href="main.php">หน้าหลัก</a></li>
+                <li><a href="about2.php">เกี่ยวกับเรา</a></li>
+                <li><a href="#">ข้อมูลภาวะโภชนาการ</a></li>
+                <li><a href="#">ข้อมูลวัคซีน</a></li>
+                <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
+                <li><a href="logout.php" class="list-group-item list-group-item-danger" onclick="return confirm('ยืนยันการออกจากระบบ');">ออกจากระบบ</a></li>
         </ul>
     </div>
 

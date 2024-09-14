@@ -31,14 +31,19 @@ session_start();
         </div>
 
         <div class="container">
-            <div class="banner">
-                <div class="quote-banner">
-                    <h2>"ใส่ใจทุกก้าวเติบโต สู่อนาคตที่แข็งแรง"</h2>
-                    <p>- เพราะสุขภาพของเด็ก คืออนาคตของเรา -</p>
+        <div class="banner">
+            <div class="banner-content">
+                <div class="banner-text">
+                    <h1>Alice Hope MD</h1>
+                    <h3>Online Medical Services</h3>
+                    <p>Reliable, Easy & Accessible to All</p>
                 </div>
-                <img src="img/img5.jpg" alt="Promotional Image" class="banner-image">
+                <div class="banner-image">
+                    <img src="img/img7.jpg" alt="Mother and Child" class="image">
+                </div>
             </div>
         </div>
+    </div>
 
         <div class="content-section">
             <div class="content-box">
