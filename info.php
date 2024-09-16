@@ -1,3 +1,80 @@
+<?php
+include 'connect.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form data
+    $DadFirstname = $_POST['DadFirstname'];
+    $DadLastname = $_POST['DadLastname'];
+    $DadAge = $_POST['DadAge'];
+    $DadTel = $_POST['DadTel'];
+    
+    $MomFirstname = $_POST['MomFirstname'];
+    $MomLastname = $_POST['MomLastname'];
+    $MomAge = $_POST['MomAge'];
+    $MomTel = $_POST['MomTel'];
+    
+    $ParentFirstname = $_POST['ParentFirstname'];
+    $ParentLastname = $_POST['ParentLastname'];
+    $ParentStatus = $_POST['ParentStatus'];
+    $ParentAge = $_POST['ParentAge'];
+    $ParentEmail = $_POST['ParentEmail'];
+    $ParentTel = $_POST['ParentTel'];
+    
+    $KidFirstname = $_POST['KidFirstname'];
+    $KidLastname = $_POST['KidLastname'];
+    $KidBirth = $_POST['KidBirth'];
+    $KidGender = $_POST['KidGender'];
+    $Address = $_POST['Address'];
+    $BloodType = $_POST['BloodType'];
+    $Weight = $_POST['weight'];
+    $KidHeight = $_POST['KidHeight'];
+
+    // Prepare SQL statement
+    $sql = "INSERT INTO info (DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel, ParentFirstname, ParentLastname, ParentStatus, ParentAge, ParentEmail, ParentTel, KidFirstname, KidLastname, KidBirth, KidGender, Address, BloodType, Weight, KidHeight) 
+            VALUES (:DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :ParentFirstname, :ParentLastname, :ParentStatus, :ParentAge, :ParentEmail, :ParentTel, :KidFirstname, :KidLastname, :KidBirth, :KidGender, :Address, :BloodType, :Weight, :KidHeight)";
+    
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameters
+    $stmt->bindParam(':DadFirstname', $DadFirstname);
+    $stmt->bindParam(':DadLastname', $DadLastname);
+    $stmt->bindParam(':DadAge', $DadAge);
+    $stmt->bindParam(':DadTel', $DadTel);
+    
+    $stmt->bindParam(':MomFirstname', $MomFirstname);
+    $stmt->bindParam(':MomLastname', $MomLastname);
+    $stmt->bindParam(':MomAge', $MomAge);
+    $stmt->bindParam(':MomTel', $MomTel);
+    
+    $stmt->bindParam(':ParentFirstname', $ParentFirstname);
+    $stmt->bindParam(':ParentLastname', $ParentLastname);
+    $stmt->bindParam(':ParentStatus', $ParentStatus);
+    $stmt->bindParam(':ParentAge', $ParentAge);
+    $stmt->bindParam(':ParentEmail', $ParentEmail);
+    $stmt->bindParam(':ParentTel', $ParentTel);
+    
+    $stmt->bindParam(':KidFirstname', $KidFirstname);
+    $stmt->bindParam(':KidLastname', $KidLastname);
+    $stmt->bindParam(':KidBirth', $KidBirth);
+    $stmt->bindParam(':KidGender', $KidGender);
+    $stmt->bindParam(':Address', $Address);
+    $stmt->bindParam(':BloodType', $BloodType);
+    $stmt->bindParam(':Weight', $Weight);
+    $stmt->bindParam(':KidHeight', $KidHeight);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        // ข้อมูลถูกบันทึกเรียบร้อยแล้ว
+        echo "<script>alert('ข้อมูลถูกบันทึกเรียบร้อยแล้ว!'); window.location.href = 'nutritional.php';</script>";
+    } else {
+        // แสดงข้อผิดพลาด
+        echo "<script>alert('เกิดข้อผิดพลาด: " . $stmt->errorInfo()[2] . "');</script>";
+    }
+    
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -6,48 +83,6 @@
     <title>เพิ่มข้อมูลเด็ก</title>
     <link rel="stylesheet" href="Css/info.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <style>
-        .form-container {
-            width: 60%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .section-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .info-form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        .info-form input, .info-form select, .info-form textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-        }
-        .info-form .full-width {
-            grid-column: span 2;
-        }
-        .gender-toggle {
-            display: flex;
-            align-items: center;
-        }
-        .gender-label {
-            margin-right: 20px;
-        }
-        .submit-btn {
-            grid-column: span 2;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
     <div class="topbar">
@@ -57,7 +92,7 @@
         <ul class="menu">
         <li><a href="main.php">หน้าหลัก</a></li>
                 <li><a href="about2.php">เกี่ยวกับเรา</a></li>
-                <li><a href="#">ข้อมูลภาวะโภชนาการ</a></li>
+                <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
                 <li><a href="#">ข้อมูลวัคซีน</a></li>
                 <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
                 <li><a href="logout.php" class="list-group-item list-group-item-danger" onclick="return confirm('ยืนยันการออกจากระบบ');">ออกจากระบบ</a></li>
