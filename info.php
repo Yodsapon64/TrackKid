@@ -64,13 +64,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute the statement
     if ($stmt->execute()) {
-        // ข้อมูลถูกบันทึกเรียบร้อยแล้ว
-        echo "<script>alert('ข้อมูลถูกบันทึกเรียบร้อยแล้ว!'); window.location.href = 'nutritional.php';</script>";
+        $lastId = $conn->lastInsertId();
+        // Redirect to nutritional.php with child ID
+        echo "<script>window.location.href = 'nutritional.php?id=" . $lastId . "';</script>";
     } else {
-        // แสดงข้อผิดพลาด
+        // Display error
         echo "<script>alert('เกิดข้อผิดพลาด: " . $stmt->errorInfo()[2] . "');</script>";
     }
-    
 }
 ?>
 
@@ -90,12 +90,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="main.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
         </div>
         <ul class="menu">
-        <li><a href="main.php">หน้าหลัก</a></li>
-                <li><a href="about2.php">เกี่ยวกับเรา</a></li>
-                <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
-                <li><a href="#">ข้อมูลวัคซีน</a></li>
-                <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
-                <li><a href="logout.php" class="list-group-item list-group-item-danger" onclick="return confirm('ยืนยันการออกจากระบบ');">ออกจากระบบ</a></li>
+            <li><a href="main.php">หน้าหลัก</a></li>
+            <li><a href="about2.php">เกี่ยวกับเรา</a></li>
+            <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
+            <li><a href="#">ข้อมูลวัคซีน</a></li>
+            <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
+            <li><a href="logout.php" class="list-group-item list-group-item-danger" onclick="return confirm('ยืนยันการออกจากระบบ');">ออกจากระบบ</a></li>
         </ul>
     </div>
 
@@ -155,33 +155,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <p>© 2024 เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี. All rights reserved.</p>
-            <ul class="footer-menu">
-                <li><a href="privacy.php">Privacy Policy</a></li>
-                <li><a href="terms.php">Terms of Service</a></li>
-                <li><a href="contact.php">Contact Us</a></li>
-            </ul>
-        </div>
-    </footer>
+    <div class="footer">
+        <p>&copy; 2024 เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</p>
+    </div>
 
-    <!-- Scripts for Flatpickr -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/th.js"></script>
     <script>
         flatpickr("#kidBirth", {
-            dateFormat: "d-m-Y",
+            dateFormat: "Y-m-d",
             maxDate: "today",
-            locale: "th",
-            onReady: function(selectedDates, dateStr, instance) {
-                const currentYear = instance.currentYear + 543; // Convert to Buddhist Era
-                instance.currentYearElement.value = currentYear;
-            },
-            onChange: function(selectedDates, dateStr, instance) {
-                const currentYear = selectedDates[0].getFullYear() + 543; // Update year to BE
-                instance.currentYearElement.value = currentYear;
-            }
         });
     </script>
 </body>
