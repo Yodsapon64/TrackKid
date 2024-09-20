@@ -7,11 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="Css/login.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
-    <script src="login.js" defer></script>
     <title>Login Page</title>
 </head>
 <body>
+    <!-- ส่วนของ HTML -->
     <div class="topbar">
         <div class="logo">
             <a href="index.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
@@ -53,12 +52,16 @@
     </footer>
 
     <?php
-    // เชื่อมต่อฐานข้อมูล
-    require_once 'connect.php';
+    if(isset($_POST['username']) && isset($_POST['password']) ){
+        // sweet alert 
+        echo '
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">';
 
-    // ถ้ามีค่าส่งมาจากฟอร์ม
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
-        // ประกาศตัวแปรรับค่าจากฟอร์ม
+    require_once 'connect.php'; // ตรวจสอบให้แน่ใจว่ามีการเชื่อมต่อฐานข้อมูล
+
+    
         $username = $_POST['username'];
         $password = $_POST['password'];
 
@@ -70,25 +73,45 @@
         // ถ้าเจอ username ในฐานข้อมูล
         if ($stmt->rowCount() == 1) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             // ตรวจสอบรหัสผ่าน
             if (password_verify($password, $row['password'])) {
                 // สร้างตัวแปร session
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['email'] = $row['email'];
-
-                // กระโดดไปหน้าหลัก
-                header('Location: main.php');
+            
+                // แสดงข้อความ alert ว่ารหัสผ่านถูกต้อง และเปลี่ยนหน้าไปยัง main.php
+                echo '<script>
+                    setTimeout(function() {
+                        swal({
+                            title: "รหัสผ่านถูกต้อง",
+                            text: "กำลังเข้าสู่ระบบ",
+                            type: "success"
+                        }, function() {
+                            window.location = "main.php";
+                        });
+                    }, 1000);
+                </script>';
                 exit();
             } else {
-                echo '<input type="hidden" id="messageType" value="warning">';
-                echo '<input type="hidden" id="messageText" value="Password ไม่ถูกต้อง ลองใหม่อีกครั้ง">';
+                // แสดง sweetalert ถ้าเกิดข้อผิดพลาด
+                echo '<script>
+                    setTimeout(function() {
+                        swal({
+                            title: "เกิดข้อผิดพลาด",
+                            text: "Username หรือ Password ไม่ถูกต้อง ลองใหม่อีกครั้ง",
+                            type: "warning"
+                        }, function() {
+                            window.location = "login.php";
+                        });
+                    }, 1000);
+                </script>';
             }
-        } else {
-            echo '<input type="hidden" id="messageType" value="warning">';
-            echo '<input type="hidden" id="messageText" value="Username หรือ Password ไม่ถูกต้อง ลองใหม่อีกครั้ง">';
+            
+            $conn = null; // ปิดการเชื่อมต่อฐานข้อมูล
         }
     }
+
     ?>
 </body>
 </html>

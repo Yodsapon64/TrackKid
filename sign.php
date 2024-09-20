@@ -1,35 +1,3 @@
-<?php
-// ตั้งค่าการเชื่อมต่อฐานข้อมูล (ปรับแต่งตามความต้องการของคุณ)
-require_once 'connect.php';
-
-// ตรวจสอบการส่งฟอร์ม
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // การเข้ารหัสรหัสผ่าน (เช่น bcrypt)
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-    // ตรวจสอบว่ามี username หรือ email ซ้ำในฐานข้อมูลหรือไม่
-    $stmt = $conn->prepare("SELECT id FROM user WHERE username = ? OR email = ?");
-    $stmt->execute([$username, $email]);
-
-    // ถ้า username หรือ email ซ้ำ
-    if ($stmt->rowCount() > 0) {
-        echo "<script>alert('Username หรือ Email ซ้ำ! กรุณาลองใหม่อีกครั้ง');</script>";
-    } else {
-        // SQL เพื่อบันทึกข้อมูลผู้ใช้
-        $stmt = $conn->prepare("INSERT INTO user (username, email, password) VALUES (?, ?, ?)");
-        if ($stmt->execute([$username, $email, $hashed_password])) {
-            echo "<script>alert('สมัครสมาชิกสำเร็จ!'); window.location.href = 'login.php';</script>";
-        } else {
-            echo "<script>alert('เกิดข้อผิดพลาด: " . $stmt->errorInfo()[2] . "');</script>";
-        }
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,5 +48,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </ul>
         </div>
     </footer>
+
+    <?php
+
+if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) ){
+    echo '
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">';
+
+    // ตั้งค่าการเชื่อมต่อฐานข้อมูล
+    require_once 'connect.php';
+
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // ตรวจสอบ username ซ้ำ
+    $stmt = $conn->prepare("SELECT id FROM user WHERE username = :username");
+    $stmt->execute(array(':username' => $username));
+
+    if ($stmt->rowCount() > 0) {
+        echo '<script>
+            setTimeout(function() {
+                swal({
+                    title: "Username ซ้ำ !! ",
+                    text: "กรุณาสมัครใหม่อีกครั้ง",
+                    type: "warning"
+                }, function() {
+                    window.location = "sign.php";
+                });
+            }, 1000);
+        </script>';
+    } else {
+        // เข้ารหัสรหัสผ่านด้วย password_hash
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // บันทึกข้อมูลลงฐานข้อมูล
+        $stmt = $conn->prepare("INSERT INTO user (username, email, password) VALUES (:username, :email, :password)");
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR); //ใช้รหัสผ่านที่เข้ารหัสแล้ว
+        $result = $stmt->execute();
+
+        if($result) {
+            echo '<script>
+                setTimeout(function() {
+                    swal({
+                        title: "สมัครสมาชิกสำเร็จ",
+                        text: "กรุณารอระบบ Login ใน Workshop ต่อไป",
+                        type: "success"
+                    }, function() {
+                        window.location = "login.php";
+                    });
+                }, 1000);
+            </script>';
+        } else {
+            echo '<script>
+                setTimeout(function() {
+                    swal({
+                        title: "เกิดข้อผิดพลาด",
+                        type: "error"
+                    }, function() {
+                        window.location = "formRegister.php";
+                    });
+                }, 1000);
+            </script>';
+        }
+        $conn = null;
+    }
+}
+
+?>
+
 </body>
 </html>
