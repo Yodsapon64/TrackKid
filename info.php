@@ -29,6 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Weight = $_POST['weight'];
     $KidHeight = $_POST['KidHeight'];
 
+    // Convert date to correct format
+    $kidBirthDate = DateTime::createFromFormat('Y-m-d', $KidBirth);
+    if ($kidBirthDate) {
+        $KidBirth = $kidBirthDate->format('Y-m-d'); // Store in correct format
+    } else {
+        $KidBirth = '1970-01-01'; // Default value if error
+    }
+
     // Prepare SQL statement
     $sql = "INSERT INTO info (DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel, ParentFirstname, ParentLastname, ParentStatus, ParentAge, ParentEmail, ParentTel, KidFirstname, KidLastname, KidBirth, KidGender, Address, BloodType, Weight, KidHeight) 
             VALUES (:DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :ParentFirstname, :ParentLastname, :ParentStatus, :ParentAge, :ParentEmail, :ParentTel, :KidFirstname, :KidLastname, :KidBirth, :KidGender, :Address, :BloodType, :Weight, :KidHeight)";
@@ -74,7 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -83,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>เพิ่มข้อมูลเด็ก</title>
     <link rel="stylesheet" href="Css/info.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="info.js"></script>
 </head>
 <body>
     <div class="topbar">
@@ -148,26 +156,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="AB">AB</option>
             <option value="O">O</option>
         </select>
-        <input type="number" name="weight" step="0.1" placeholder="น้ำหนัก (กิโลกรัม)" required>
-        <input type="number" name="KidHeight" step="0.1" placeholder="ส่วนสูง (เซนติเมตร)" required>
         
-        <button type="submit" class="submit-btn">ยืนยันข้อมูล</button>
+        <input type="number" name="weight" placeholder="น้ำหนักเด็ก (kg)" required>
+        <input type="number" name="KidHeight" placeholder="ส่วนสูงเด็ก (cm)" required>
+
+        <button type="submit">บันทึกข้อมูล</button>
     </form>
 </div>
 
 
-    <div class="footer">
-        <p>&copy; 2024 เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</p>
-    </div>
-    <script src="info.js"></script>
+<footer class="footer">
+        <div class="footer-container">
+            <p>© 2024 เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี. All rights reserved.</p>
+            <ul class="footer-menu">
+                <li><a href="privacy.php">Privacy Policy</a></li>
+                <li><a href="terms.php">Terms of Service</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
 
+    
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    flatpickr("#kidBirth", {
+        dateFormat: "Y-m-d",
+        maxDate: new Date().fp_incr(-1) // Set max date to yesterday
+    });
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script>
-        flatpickr("#kidBirth", {
-            dateFormat: "Y-m-d",
-            maxDate: "today",
-        });
-    </script>
+    function validateForm() {
+        // Implement form validation if needed
+        return true;
+    }
+</script>
 </body>
 </html>

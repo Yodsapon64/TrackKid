@@ -1,83 +1,104 @@
-// ตรวจสอบว่าไม่มีการใช้ชื่อบิดา, มารดา, และเด็กเหมือนกัน
-function validateForm() {
-            const DadFirstname = document.querySelector('input[name="DadFirstname"]').value;
-            const MomFirstname = document.querySelector('input[name="MomFirstname"]').value;
-            const KidFirstname = document.querySelector('input[name="KidFirstname"]').value;
-        
-            const DadTel = document.querySelector('input[name="DadTel"]').value;
-            const MomTel = document.querySelector('input[name="MomTel"]').value;
-        
-            // ตรวจสอบไม่ให้ชื่อบิดา มารดา และเด็กเหมือนกัน
-            if (DadFirstname === MomFirstname || DadFirstname === KidFirstname || MomFirstname === KidFirstname) {
-                alert('ชื่อบิดา, มารดา, และชื่อเด็กต้องไม่เหมือนกัน');
-                return false;
+document.addEventListener("DOMContentLoaded", function() {
+    // ตั้งค่า Flatpickr สำหรับ input วันเกิด
+    flatpickr("#kidBirth", {
+        dateFormat: "Y-m-d",  // รูปแบบวันที่เป็นปี-เดือน-วัน
+        maxDate: "today",  // เลือกได้ถึงวันที่ปัจจุบัน
+        minDate: new Date().setFullYear(new Date().getFullYear() - 12), // ย้อนหลังได้สูงสุด 12 ปี
+        locale: {
+            firstDayOfWeek: 1, // เริ่มต้นสัปดาห์ที่วันจันทร์
+            weekdays: {
+                shorthand: ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"],
+                longhand: ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"]
+            },
+            months: {
+                shorthand: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."],
+                longhand: ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"]
+            },
+            rangeSeparator: " ถึง ",
+            weekAbbreviation: "สัปดาห์",
+            scrollTitle: "เลื่อนเพื่อเลือก",
+            toggleTitle: "คลิกเพื่อเปลี่ยน",
+            nextArrow: "ถัดไป",
+            prevArrow: "ก่อนหน้า",
+            time_24hr: true, // ใช้ระบบเวลา 24 ชั่วโมง
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            // เปลี่ยนปีให้เป็น พ.ศ. เมื่อเปิดปฏิทิน
+            convertYearToBuddhist(instance);
+        },
+        onChange: function(selectedDates, dateStr, instance) {
+            // เปลี่ยนปีให้เป็น พ.ศ. เมื่อเลือกวันที่ใหม่
+            convertYearToBuddhist(instance);
+        },
+        onMonthChange: function(selectedDates, dateStr, instance) {
+            // เปลี่ยนปีให้เป็น พ.ศ. เมื่อเปลี่ยนเดือน
+            convertYearToBuddhist(instance);
+        },
+        onClose: function(selectedDates, dateStr, instance) {
+            // แปลงวันที่เลือกเป็นปี พ.ศ. ใน input
+            if (selectedDates.length > 0) {
+                const selectedDate = selectedDates[0];
+                const buddhistYear = selectedDate.getFullYear() + 543;
+                const month = ("0" + (selectedDate.getMonth() + 1)).slice(-2); // เติมเลข 0 หน้าถ้าจำนวนหลักเป็นตัวเดียว
+                const day = ("0" + selectedDate.getDate()).slice(-2); // เติมเลข 0 หน้าถ้าจำนวนหลักเป็นตัวเดียว
+                document.getElementById("kidBirth").value = `${buddhistYear}-${month}-${day}`;
             }
-        
-            // ตรวจสอบไม่ให้เบอร์โทรของบิดาและมารดาเหมือนกัน
-            if (DadTel === MomTel) {
-                alert('เบอร์โทรของบิดาและมารดาต้องไม่เหมือนกัน');
-                return false;
-            }
-        
-            // ตรวจสอบว่าชื่อและนามสกุลไม่มีตัวเลข
-            const nameFields = ['DadFirstname', 'DadLastname', 'MomFirstname', 'MomLastname', 'KidFirstname', 'KidLastname'];
-            const regex = /^[A-Za-zก-ฮะ-์]+$/; // อนุญาตเฉพาะตัวอักษรไทยและอังกฤษ
-        
-            for (let field of nameFields) {
-                const value = document.querySelector(`input[name="${field}"]`).value;
-                if (!regex.test(value)) {
-                    alert('ชื่อและนามสกุลต้องประกอบด้วยตัวอักษรเท่านั้น');
-                    return false;
-                }
-            }
-        
-            return true;
+        },
+        parseDate: function(dateStr, format) {
+            // แปลงวันที่จาก พ.ศ. เป็น ค.ศ. ก่อนส่งไปยัง Flatpickr
+            const parts = dateStr.split("-");
+            const buddhistYear = parseInt(parts[0]) - 543; // แปลงปี พ.ศ. เป็น ค.ศ.
+            return new Date(buddhistYear, parts[1] - 1, parts[2]); // ค.ศ., เดือน, วัน
         }
-        
-        // ฟังก์ชันจำกัดการใส่ตัวเลขในชื่อและนามสกุล
-        function restrictNonLetters(inputField) {
-            const regex = /[^A-Za-zก-ฮะ-์]/g; // อนุญาตเฉพาะตัวอักษรไทยและอังกฤษ
-            inputField.addEventListener('input', function() {
-                this.value = this.value.replace(regex, ''); // ลบตัวอักษรที่ไม่ใช่ตัวอักษรออก
-            });
-        }
-        
-        // ตั้งค่า Flatpickr และจำกัดการป้อนข้อมูล
-        document.addEventListener("DOMContentLoaded", function() {
-            flatpickr("#kidBirth", {
-                dateFormat: "Y-m-d",
-                maxDate: "today",
-                locale: {
-                    firstDayOfWeek: 1, // วันจันทร์เป็นวันแรกของสัปดาห์
-                    weekdays: {
-                        shorthand: ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"],
-                        longhand: ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"]
-                    },
-                    months: {
-                        shorthand: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."],
-                        longhand: ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"]
-                    },
-                    rangeSeparator: " ถึง ", // ใช้เมื่อเลือกช่วงวันที่
-                    weekAbbreviation: "สัปดาห์",
-                    scrollTitle: "เลื่อนเพื่อเลือก",
-                    toggleTitle: "คลิกเพื่อเปลี่ยน",
-                    nextArrow: "ถัดไป",
-                    prevArrow: "ก่อนหน้า",
-                }
-            });
-        
-            // จำกัดการป้อนข้อมูลเบอร์โทรให้มีแต่ตัวเลข
-            const phoneInputs = document.querySelectorAll('input[type="tel"]');
-            phoneInputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    this.value = this.value.replace(/[^0-9]/g, ''); // ลบตัวอักษรที่ไม่ใช่ตัวเลขออก
-                });
-            });
-        
-            // จำกัดการป้อนตัวเลขในชื่อและนามสกุล
-            const nameFields = document.querySelectorAll('input[name="DadFirstname"], input[name="DadLastname"], input[name="MomFirstname"], input[name="MomLastname"], input[name="KidFirstname"], input[name="KidLastname"]');
-            nameFields.forEach(field => {
-                restrictNonLetters(field);
-            });
+    });
+
+    function convertYearToBuddhist(instance) {
+        // เปลี่ยนปีจาก ค.ศ. เป็น พ.ศ. ในปฏิทิน Flatpickr
+        const calendarYearElements = instance.calendarContainer.querySelectorAll(".flatpickr-current-year");
+        calendarYearElements.forEach(function(yearElem) {
+            const year = parseInt(yearElem.value);
+            if (year < 2500) {
+                yearElem.value = (year + 543).toString(); // เปลี่ยนเป็น พ.ศ.
+            }
         });
-        
+    }
+
+    // เพิ่มการตรวจสอบสำหรับเบอร์โทร
+    const telInputs = document.querySelectorAll('input[type="tel"]');
+    telInputs.forEach(function(input) {
+        input.addEventListener("input", function() {
+            this.value = this.value.replace(/[^0-9]/g, ''); // อนุญาตให้กรอกได้เฉพาะตัวเลข
+        });
+    });
+
+    // เพิ่มการตรวจสอบไม่ให้ชื่อและนามสกุลมีตัวเลข
+    const textInputs = document.querySelectorAll('input[type="text"]');
+    textInputs.forEach(function(input) {
+        input.addEventListener("input", function() {
+            this.value = this.value.replace(/[\d]/g, ''); // อนุญาตให้กรอกได้เฉพาะตัวอักษร
+        });
+    });
+
+    // ตรวจสอบให้เบอร์โทรบิดาและมารดาไม่ให้ใส่ซ้ำกัน
+    const dadTelInput = document.querySelector('input[name="DadTel"]');
+    const momTelInput = document.querySelector('input[name="MomTel"]');
+
+    dadTelInput.addEventListener("input", checkTelDuplicate);
+    momTelInput.addEventListener("input", checkTelDuplicate);
+
+    function checkTelDuplicate() {
+        if (dadTelInput.value === momTelInput.value) {
+            alert("เบอร์โทรบิดาและมารดาไม่สามารถใส่เหมือนกันได้");
+            dadTelInput.value = "";
+            momTelInput.value = "";
+        }
+    }
+
+    // ตรวจสอบน้ำหนักและส่วนสูงให้ใส่ได้เฉพาะตัวเลข
+    const numberInputs = document.querySelectorAll('input[type="number"]');
+    numberInputs.forEach(function(input) {
+        input.addEventListener("input", function() {
+            this.value = this.value.replace(/[^0-9.]/g, ''); // อนุญาตให้กรอกได้เฉพาะตัวเลขและจุด
+        });
+    });
+});
