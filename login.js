@@ -1,18 +1,24 @@
 // login.js
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if there's a message to show
-    const messageType = document.getElementById('messageType').value;
-    const messageText = document.getElementById('messageText').value;
+function showSuccessAlert() {
+    setTimeout(function() {
+        swal({
+            title: "รหัสผ่านถูกต้อง",
+            text: "กำลังเข้าสู่ระบบ",
+            type: "success"
+        }, function() {
+            window.location = "main.php";
+        });
+    }, 1000);
+}
 
-    if (messageType && messageText) {
-        setTimeout(function() {
-            swal({
-                title: "เกิดข้อผิดพลาด",
-                text: messageText,
-                type: messageType
-            }, function() {
-                window.location = "login.php";
-            });
-        }, 1000);
-    }
-});
+function showErrorAlert() {
+    setTimeout(function() {
+        swal({
+            title: "เกิดข้อผิดพลาด",
+            text: "Username หรือ Password ไม่ถูกต้อง ลองใหม่อีกครั้ง",
+            type: "warning"
+        }, function() {
+            window.location = "login.php";
+        });
+    }, 1000);
+}

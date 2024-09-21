@@ -100,64 +100,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <div class="form-container">
-        <h2>เพิ่มข้อมูลส่วนตัวเด็ก</h2>
-        <p>โปรดกรอกข้อมูลด้านล่าง</p>
-        <form action="" method="post" class="info-form">
-            <!-- Father Section -->
-            <div class="section-title full-width">ข้อมูลบิดา</div>
-            <input type="text" name="DadFirstname" placeholder="ชื่อบิดา" required>
-            <input type="text" name="DadLastname" placeholder="นามสกุลบิดา" required>
-            <input type="number" name="DadAge" placeholder="อายุบิดา" required>
-            <input type="tel" name="DadTel" placeholder="เบอร์โทรบิดา" required>
+    <h2>เพิ่มข้อมูลส่วนตัวเด็ก</h2>
+    <p>โปรดกรอกข้อมูลด้านล่าง</p>
+    <form action="" method="post" class="info-form" onsubmit="return validateForm()">
+        <!-- Father Section -->
+        <div class="section-title">ข้อมูลบิดา</div>
+        <input type="text" name="DadFirstname" placeholder="ชื่อบิดา" required>
+        <input type="text" name="DadLastname" placeholder="นามสกุลบิดา" required>
+        <input type="number" name="DadAge" placeholder="อายุบิดา" required>
+        <input type="tel" name="DadTel" placeholder="เบอร์โทรบิดา" required>
 
-            <!-- Mother Section -->
-            <div class="section-title full-width">ข้อมูลมารดา</div>
-            <input type="text" name="MomFirstname" placeholder="ชื่อมารดา" required>
-            <input type="text" name="MomLastname" placeholder="นามสกุลมารดา" required>
-            <input type="number" name="MomAge" placeholder="อายุมารดา" required>
-            <input type="tel" name="MomTel" placeholder="เบอร์โทรมารดา" required>
+        <!-- Mother Section -->
+        <div class="section-title">ข้อมูลมารดา</div>
+        <input type="text" name="MomFirstname" placeholder="ชื่อมารดา" required>
+        <input type="text" name="MomLastname" placeholder="นามสกุลมารดา" required>
+        <input type="number" name="MomAge" placeholder="อายุมารดา" required>
+        <input type="tel" name="MomTel" placeholder="เบอร์โทรมารดา" required>
 
-            <!-- Guardian Section -->
-            <div class="section-title full-width">ข้อมูลผู้ปกครอง</div>
-            <input type="text" name="ParentFirstname" placeholder="ชื่อผู้ปกครอง" required>
-            <input type="text" name="ParentLastname" placeholder="นามสกุลผู้ปกครอง" required>
-            <input type="text" name="ParentStatus" placeholder="สถานภาพผู้ปกครอง" required>
-            <input type="number" name="ParentAge" placeholder="อายุผู้ปกครอง" required>
-            <input type="email" name="ParentEmail" placeholder="อีเมลผู้ปกครอง" required>
-            <input type="tel" name="ParentTel" placeholder="เบอร์โทรผู้ปกครอง" required>
+        <!-- Guardian Section -->
+        <div class="section-title">ข้อมูลผู้ปกครอง</div>
+        <input type="text" name="ParentFirstname" placeholder="ชื่อผู้ปกครอง" required>
+        <input type="text" name="ParentLastname" placeholder="นามสกุลผู้ปกครอง" required>
+        <input type="text" name="ParentStatus" placeholder="สถานภาพผู้ปกครอง" required>
+        <input type="number" name="ParentAge" placeholder="อายุผู้ปกครอง" required>
+        <input type="email" name="ParentEmail" placeholder="อีเมลผู้ปกครอง" required>
+        <input type="tel" name="ParentTel" placeholder="เบอร์โทรผู้ปกครอง" required>
 
-            <!-- Child Section -->
-            <div class="section-title full-width">ข้อมูลเด็ก</div>
-            <input type="text" name="KidFirstname" placeholder="ชื่อเด็ก" required>
-            <input type="text" name="KidLastname" placeholder="นามสกุลเด็ก" required>
-            <input type="text" name="KidBirth" id="kidBirth" placeholder="วันเกิดเด็ก" required class="full-width">
-            
-            <label for="KidGender" class="full-width">เพศของเด็ก</label>
-            <div class="gender-toggle full-width">
-                <input type="radio" id="kidMale" name="KidGender" value="ชาย">
-                <label for="kidMale" class="gender-label male">ชาย</label>
-                <input type="radio" id="kidFemale" name="KidGender" value="หญิง">
-                <label for="kidFemale" class="gender-label female">หญิง</label>
-            </div>
+        <!-- Child Section -->
+        <div class="section-title">ข้อมูลเด็ก</div>
+        <input type="text" name="KidFirstname" placeholder="ชื่อเด็ก" required>
+        <input type="text" name="KidLastname" placeholder="นามสกุลเด็ก" required>
+        <input type="text" name="KidBirth" id="kidBirth" placeholder="วันเกิดเด็ก" required class="full-width">
+        
+        <label for="KidGender" class="full-width">เพศของเด็ก</label>
+        <div class="gender-toggle">
+            <input type="radio" id="kidMale" name="KidGender" value="ชาย">
+            <label for="kidMale" class="gender-label male">ชาย</label>
+            <input type="radio" id="kidFemale" name="KidGender" value="หญิง">
+            <label for="kidFemale" class="gender-label female">หญิง</label>
+        </div>
 
-            <textarea id="address" name="Address" rows="4" placeholder="ที่อยู่ปัจจุบัน" class="full-width"></textarea>
-            <select name="BloodType" required class="full-width">
-                <option value="">กรุ๊ปเลือดของเด็ก</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="AB">AB</option>
-                <option value="O">O</option>
-            </select>
-            <input type="number" name="weight" step="0.1" placeholder="น้ำหนัก (กิโลกรัม)" required>
-            <input type="number" name="KidHeight" step="0.1" placeholder="ส่วนสูง (เซนติเมตร)" required>
-            
-            <button type="submit" class="submit-btn">ยืนยันข้อมูล</button>
-        </form>
-    </div>
+        <textarea id="address" name="Address" rows="4" placeholder="ที่อยู่ปัจจุบัน" class="full-width"></textarea>
+        <select name="BloodType" required class="full-width">
+            <option value="">กรุ๊ปเลือดของเด็ก</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="AB">AB</option>
+            <option value="O">O</option>
+        </select>
+        <input type="number" name="weight" step="0.1" placeholder="น้ำหนัก (กิโลกรัม)" required>
+        <input type="number" name="KidHeight" step="0.1" placeholder="ส่วนสูง (เซนติเมตร)" required>
+        
+        <button type="submit" class="submit-btn">ยืนยันข้อมูล</button>
+    </form>
+</div>
+
 
     <div class="footer">
         <p>&copy; 2024 เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</p>
     </div>
+    <script src="info.js"></script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>

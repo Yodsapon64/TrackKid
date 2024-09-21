@@ -14,17 +14,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px; /* Reduce the padding for a smaller topbar */
+    padding: 10px 20px; 
     background-color: rgb(54, 54, 54);
     margin: 8px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 60px; /* Set a fixed height for a consistent topbar size */
+    height: 60px; 
 }
 
 .logo a {
     text-decoration: none;
-    font-size: 18px; /* Adjust font size to fit smaller topbar */
+    font-size: 18px; 
     font-weight: bold;
     color: #fff;
 }
@@ -33,11 +33,11 @@ body {
     display: flex;
     align-items: center;
     list-style: none;
-    margin: 0; /* Ensure no extra spacing */
+    margin: 0; 
 }
 
 .menu li {
-    margin-left: 15px; /* Reduce margin between menu items */
+    margin-left: 15px; 
 }
 
 .menu li a {
@@ -54,8 +54,8 @@ body {
 .menu li .list-group-item-danger {
     background-color: #d9534f;
     border: none;
-    padding: 8px 16px; /* Adjusted padding */
-    font-size: 0.9em; /* Adjusted font size */
+    padding: 8px 16px; 
+    font-size: 0.9em; 
     color: #fff;
     cursor: pointer;
     border-radius: 5px;
@@ -69,10 +69,9 @@ body {
 }
 
 /* สไตล์สำหรับฟอร์ม */
-/* Form container and layout */
 .form-container {
     background-color: #ffffff;
-    max-width: 1000px;
+    max-width: 800px; /* ลดความกว้าง */
     margin: 40px auto;
     padding: 40px;
     border-radius: 15px;
@@ -81,34 +80,33 @@ body {
 
 h2 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #333;
-    font-size: 32px;
+    font-size: 28px; /* ปรับขนาด */
     font-weight: 600;
 }
 
 p {
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 18px;
+    margin-bottom: 20px;
+    font-size: 16px; /* ปรับขนาด */
     color: #666;
 }
 
 form {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    display: flex;
+    flex-direction: column; /* ใช้แนวตั้ง */
+    gap: 15px; /* เว้นระยะ */
 }
 
 .section-title {
-    grid-column: span 2;
     background-color: #007bff;
     color: #fff;
-    padding: 10px 15px;
+    padding: 12px;
     border-radius: 8px;
-    font-size: 18px;
+    font-size: 20px; /* ปรับขนาด */
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-weight: bold;
 }
 
@@ -120,7 +118,7 @@ input[type="email"],
 textarea,
 select {
     width: 100%;
-    padding: 14px;
+    padding: 15px; /* เพิ่ม padding */
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 16px;
@@ -135,7 +133,6 @@ select:focus {
 }
 
 textarea {
-    grid-column: span 2;
     resize: none;
 }
 
@@ -143,12 +140,11 @@ textarea {
 .gender-toggle {
     display: flex;
     justify-content: space-around;
-    grid-column: span 2;
     margin-bottom: 20px;
 }
 
 .gender-label {
-    padding: 12px 30px;
+    padding: 12px 20px; /* ปรับ padding */
     border-radius: 30px;
     font-size: 16px;
     cursor: pointer;
@@ -177,7 +173,6 @@ input[type="radio"]:checked + .gender-label {
 
 /* Submit button */
 .submit-btn {
-    grid-column: span 2;
     background-color: #007bff;
     color: white;
     padding: 16px;
@@ -194,7 +189,6 @@ input[type="radio"]:checked + .gender-label {
     background-color: #0056b3;
 }
 
-
 .footer {
     background-color: #333;
     color: #fff;
@@ -203,35 +197,7 @@ input[type="radio"]:checked + .gender-label {
     width: 100%;
 }
 
-.footer-container {
-    width: 80%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
 .footer p {
     margin: 0;
     font-size: 14px;
-}
-
-.footer-menu {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 0;
-    display: flex;
-    justify-content: center;
-}
-
-.footer-menu li {
-    margin: 0 10px;
-}
-
-.footer-menu li a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.footer-menu li a:hover {
-    color: #ff790b;
 }

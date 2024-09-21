@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="Css/login.css">
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+    <script src="login.js"></script>
     <title>Login Page</title>
 </head>
 <body>
@@ -53,15 +57,8 @@
 
     <?php
     if(isset($_POST['username']) && isset($_POST['password']) ){
-        // sweet alert 
-        echo '
-        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">';
+        require_once 'connect.php'; // ตรวจสอบให้แน่ใจว่ามีการเชื่อมต่อฐานข้อมูล
 
-    require_once 'connect.php'; // ตรวจสอบให้แน่ใจว่ามีการเชื่อมต่อฐานข้อมูล
-
-    
         $username = $_POST['username'];
         $password = $_POST['password'];
 
@@ -79,39 +76,18 @@
                 // สร้างตัวแปร session
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['email'] = $row['email'];
-            
-                // แสดงข้อความ alert ว่ารหัสผ่านถูกต้อง และเปลี่ยนหน้าไปยัง main.php
-                echo '<script>
-                    setTimeout(function() {
-                        swal({
-                            title: "รหัสผ่านถูกต้อง",
-                            text: "กำลังเข้าสู่ระบบ",
-                            type: "success"
-                        }, function() {
-                            window.location = "main.php";
-                        });
-                    }, 1000);
-                </script>';
+
+                // เรียกใช้ฟังก์ชันแสดง alert สำหรับการเข้าสู่ระบบที่ถูกต้อง
+                echo '<script>showSuccessAlert();</script>';
                 exit();
             } else {
-                // แสดง sweetalert ถ้าเกิดข้อผิดพลาด
-                echo '<script>
-                    setTimeout(function() {
-                        swal({
-                            title: "เกิดข้อผิดพลาด",
-                            text: "Username หรือ Password ไม่ถูกต้อง ลองใหม่อีกครั้ง",
-                            type: "warning"
-                        }, function() {
-                            window.location = "login.php";
-                        });
-                    }, 1000);
-                </script>';
+                // เรียกใช้ฟังก์ชันแสดง alert ถ้าเกิดข้อผิดพลาด
+                echo '<script>showErrorAlert();</script>';
             }
-            
+
             $conn = null; // ปิดการเชื่อมต่อฐานข้อมูล
         }
     }
-
     ?>
 </body>
 </html>
