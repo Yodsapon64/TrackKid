@@ -108,8 +108,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <div class="form-container">
-    <h2>เพิ่มข้อมูลส่วนตัวเด็ก</h2>
-    <p>โปรดกรอกข้อมูลด้านล่าง</p>
+    <h2>กรุณากรอกข้อมูลส่วนตัว</h2>
+    <p>เพื่อเริ่มต้นการประเมินภาวะโภวชนาการ</p>
     <form action="" method="post" class="info-form" onsubmit="return validateForm()">
         <!-- Father Section -->
         <div class="section-title">ข้อมูลบิดา</div>
@@ -175,7 +175,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </ul>
         </div>
     </footer>
-
     
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>

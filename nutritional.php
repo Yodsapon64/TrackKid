@@ -1,16 +1,16 @@
 <?php
 include 'connect.php';
 
-$id = $_GET['id'] ?? null;
+$id = $_POST['id'] ?? null;
 
 if ($id) {
-    // Fetch child information
-    $stmt = $conn->prepare("SELECT * FROM info WHERE id = :id");
+    // ดึงข้อมูลเด็ก
+    $stmt = $conn->prepare("SELECT * FROM user.info WHERE id = :id");
     $stmt->bindParam(':id', $id);
     $stmt->execute();
     $childInfo = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    // Calculate age
+    // คำนวณอายุ
     if ($childInfo && isset($childInfo['KidBirth'])) {
         $birthDate = new DateTime($childInfo['KidBirth']);
         $today = new DateTime();
@@ -28,7 +28,6 @@ if ($id) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ข้อมูลภาวะโภชนาการ</title>
     <link rel="stylesheet" href="Css/nutritional.css">
-    <script></script>
 </head>
 <body>
     <div class="topbar">
@@ -89,6 +88,5 @@ if ($id) {
             <p>Copyright &copy; 2024 - เว็บไซต์สุขภาพเด็ก</p>
         </div>
     </footer>
-    
 </body>
 </html>

@@ -69,56 +69,131 @@ body {
 }
 
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: calc(100vh - 80px);
-    padding: 20px;
-}
-
+/* Banner styles */
 .banner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh; /* Reduce height for a better fit */
-    background-color: #bdda00; /* Softer background color */
-    padding: 40px 20px; /* Increase padding for more space */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for professionalism */
-    border-radius: 10px; /* Rounded corners for a friendly look */
-}
-
-.banner-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    width: 100%;
-    padding: 20px;
-}
-
-.banner-text {
-    flex: 1; /* ครอบครองพื้นที่ครึ่งหนึ่ง */
-    padding-right: 50px;
-}
-
-.banner-image {
-    flex: 1; /* ครอบครองพื้นที่ครึ่งหนึ่ง */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.banner-image .image {
-    width: 100%; /* ขยายภาพเต็มพื้นที่ของ banner-image */
-    height: auto;
+    background-color: #ff7300; /* Dark background to match the image */
+    padding: 40px;
+    text-align: center;
+    margin: 20px auto;
     border-radius: 10px;
-    object-fit: cover; /* เพื่อให้ภาพพอดีกับพื้นที่ */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเบาๆ เพื่อให้ดูเป็นมืออาชีพ */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+}
+
+.banner h2 {
+    font-size: 2em;
+    color: white;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.banner p {
+    font-size: 1.2em;
+    color: rgb(0, 0, 0);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Styling for the 3 columns */
+.three-columns {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0;
+}
+
+.column {
+    text-align: center;
+    width: 30%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.circle-image {
+    background-color: #777; /* สีพื้นหลังหากไม่มีภาพ */
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    width: 100px; /* กำหนดความกว้าง */
+    height: 100px; /* กำหนดความสูง */
+    margin: 0 auto 20px;
+    overflow: hidden; /* ซ่อนส่วนเกินของรูปภาพที่ออกนอกกรอบ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ให้รูปภาพพอดีกับกรอบวงกลม */
+    border-radius: 50%; /* ทำให้ภาพกลมตามกรอบ */
 }
 
 
+h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1em;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Styling for the featurette section */
+.featurette {
+    margin: 60px 0; /* เพิ่มช่องว่างระหว่าง section */
+}
+
+.featurette-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 60px; /* เพิ่มช่องว่างระหว่างแต่ละ featurette */
+}
+
+.featurette-item:nth-child(even) {
+    flex-direction: row-reverse; /* จัดตำแหน่งสลับด้าน */
+}
+
+.featurette-text {
+    width: 45%; /* ลดขนาดเพื่อให้สมดุลกับรูปภาพ */
+    padding: 20px;
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #333; /* สีข้อความ */
+}
+
+.featurette-image {
+    width: 45%; /* ลดขนาดรูปภาพ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.featurette-image img {
+    width: 100%;
+    height: auto; /* ทำให้รูปภาพอัตโนมัติตามขนาด container */
+    max-width: 450px; /* กำหนดขนาดสูงสุดของรูปภาพ */
+    border-radius: 10px; /* เพิ่มความโค้งมนให้รูปภาพ */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเพื่อความสวยงาม */
+}
+
+.featurette-divider {
+    border: 1px solid #ddd;
+    margin: 60px 0;
+}
+
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
 
 
 
@@ -279,3 +354,5 @@ body {
     font-size: 0.8em;
     background-color: #222;
 }
+
+

@@ -9,7 +9,6 @@ session_start();
     <title>Main Page</title>
     <link rel="stylesheet" href="Css/main.css">
     <script src="main.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 <div class="topbar">
@@ -25,21 +24,77 @@ session_start();
                 <li><a href="logout.php" class="list-group-item list-group-item-danger" onclick="return confirm('ยืนยันการออกจากระบบ');">ออกจากระบบ</a></li>
             </ul>
         </div>
+        
 
-        <div class="container">
         <div class="banner">
-            <div class="banner-content">
-                <div class="banner-text">
-                    <h1>Alice Hope MD</h1>
-                    <h3>Online Medical Services</h3>
-                    <p>Reliable, Easy & Accessible to All</p>
-                </div>
-                <div class="banner-image">
-                    <img src="img/img7.jpg" alt="Mother and Child" class="image">
-                </div>
-            </div>
+    <h2>Title of a longer featured blog post</h2>
+    <p>Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+</div>
+
+
+<div class="three-columns">
+    <div class="column">
+        <div class="circle-image">
+            <img src="img/icon2.jpg" alt="Icon 1">
+        </div>
+        <h3>Heading</h3>
+        <p>Some representative placeholder content for the first column.</p>
+    </div>
+    <div class="column">
+        <div class="circle-image">
+            <img src="img/icon5.jpg" alt="Icon 2">
+        </div>
+        <h3>Heading</h3>
+        <p>Another exciting bit of representative placeholder content.</p>
+    </div>
+    <div class="column">
+        <div class="circle-image">
+            <img src="img/icon4.jpg" alt="Icon 3">
+        </div>
+        <h3>Heading</h3>
+        <p>And lastly this, the third column of representative placeholder content.</p>
+    </div>
+</div>
+
+
+
+<div class="featurette">
+    <div class="featurette-item">
+        <div class="featurette-text">
+            <h2>First featurette heading. It’ll blow your mind.</h2>
+            <p>Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+        </div>
+        <div class="featurette-image">
+            <img src="img/img7.jpg" alt="500x500 placeholder image">
         </div>
     </div>
+
+    <hr class="featurette-divider">
+
+    <div class="featurette-item">
+        <div class="featurette-image">
+            <img src="img/img8.jpg" alt="500x500 placeholder image">
+        </div>
+        <div class="featurette-text">
+            <h2>Oh yeah, it’s that good. See for yourself.</h2>
+            <p>Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="featurette-item">
+        <div class="featurette-text">
+            <h2>And lastly, this one. Checkmate.</h2>
+            <p>And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
+        </div>
+        <div class="featurette-image">
+            <img src="img/img9.jpg" alt="500x500 placeholder image">
+        </div>
+    </div>
+</div>
+
+
 
         <div class="content-section">
             <div class="content-box">
