@@ -69,7 +69,7 @@ body {
 
 /* สไตล์สำหรับฟอร์ม */
 .form-container {
-    background-color: #ffffff;
+    background-color: #ffaa00;
     max-width: 800px; /* ลดความกว้าง */
     margin: 40px auto;
     padding: 40px;
@@ -80,7 +80,7 @@ body {
 h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #ffffff;
+    color: #000000;
     font-size: 28px; /* ปรับขนาด */
     font-weight: 600;
 }
@@ -88,7 +88,7 @@ h2 {
 p {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 16px; /* ปรับขนาด */
+    font-size: 24px; /* ปรับขนาด */
     color: #ffffff;
 }
 
@@ -155,11 +155,11 @@ textarea {
 }
 
 .gender-label.male {
-    background-color: #2f4ed7;
+    background-color: #5f7af6;
 }
 
 .gender-label.female {
-    background-color: #b81048;
+    background-color: #ee5185;
 }
 
 input[type="radio"] {
@@ -167,36 +167,74 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked + .gender-label {
-    background-color: #ff7a59;
+    background-color: #353434;
 }
 
 /* Submit button */
-.submit-btn {
-    background-color: #007bff;
+/* ปุ่มบันทึกข้อมูล */
+.sub {
+    background-color: #ff790b; /* สีหลักของปุ่ม */
     color: white;
-    padding: 16px;
+    padding: 14px 20px;
     border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    border-radius: 10px; /* เพิ่มความโค้งมนให้ปุ่ม */
+    font-size: 18px; /* ขนาดตัวอักษรใหญ่ขึ้น */
+    font-weight: bold; /* ตัวหนา */
+    text-transform: uppercase; /* ตัวพิมพ์ใหญ่ */
+    cursor: pointer; /* เปลี่ยนรูปแบบเมาส์เมื่อชี้ */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* การเปลี่ยนแปลงนุ่มนวล */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* เงา */
 }
 
-.submit-btn:hover {
-    background-color: #0056b3;
+sub:hover {
+    background-color: #ff5500; /* สีเข้มขึ้นเมื่อโฮเวอร์ */
+    transform: translateY(-2px); /* ขยับขึ้นเล็กน้อย */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* เงาเข้มขึ้น */
 }
+
+sub:active {
+    background-color: #d94c00; /* สีเมื่อกด */
+    transform: translateY(0); /* คืนค่าขยับเมื่อกด */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* เงาเบาลงเมื่อกด */
+}
+
+
 
 .footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #2c2c2c; /* Darker background */
+    color: #d3d3d3; /* Light grey text */
     padding: 20px 0;
     text-align: center;
     width: 100%;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1); /* Shadow for elevation */
 }
 
 .footer p {
     margin: 0;
     font-size: 14px;
+    color: #ccc; /* Softer text color */
+}
+
+.footer-menu {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Even spacing between items */
+}
+
+.footer-menu li {
+    display: inline;
+}
+
+.footer-menu li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.footer-menu li a:hover {
+    color: #ff790b; /* Orange hover effect */
 }

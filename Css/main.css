@@ -71,7 +71,7 @@ body {
 
 /* Banner styles */
 .banner {
-    background-color: #ff7300; /* Dark background to match the image */
+    background-color: #ff841f; /* Dark background to match the image */
     padding: 40px;
     text-align: center;
     margin: 20px auto;
@@ -82,14 +82,14 @@ body {
 
 .banner h2 {
     font-size: 2em;
-    color: white;
+    color: rgb(0, 0, 0);
     margin-bottom: 10px;
     font-weight: bold;
 }
 
 .banner p {
-    font-size: 1.2em;
-    color: rgb(0, 0, 0);
+    font-size: 26px;
+    color: rgb(255, 255, 255);
     margin-bottom: 20px;
     line-height: 1.5;
 }
@@ -147,10 +147,11 @@ p {
 
 .featurette-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 60px; /* เพิ่มช่องว่างระหว่างแต่ละ featurette */
+    justify-content: center;
 }
+
 
 .featurette-item:nth-child(even) {
     flex-direction: row-reverse; /* จัดตำแหน่งสลับด้าน */
@@ -186,14 +187,11 @@ p {
 
 
 h2 {
-    font-size: 2em;
+    font-size: 22px;
     margin-bottom: 20px;
 }
 
-p {
-    font-size: 1.1em;
-    line-height: 1.6;
-}
+
 
 
 

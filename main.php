@@ -27,8 +27,10 @@ session_start();
         
 
         <div class="banner">
-    <h2>Title of a longer featured blog post</h2>
-    <p>Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+    <h2>ยินดีต้อนรับสำหรับการสมัครสมาชิกของท่าน</h2>
+    <p>กรุณากรอกเพิ่มข้อมูลส่วนตัวสำหรับสิทธิประโยชน์ต่างๆ เช่น การประเมินภาวะโภวชนาการ การได้รับความรู้และคำแนะนำในการดูแลเด็ก
+         และ การได้รับข้อมูลการฉีดวัคซีน
+    </p>
 </div>
 
 
@@ -37,32 +39,36 @@ session_start();
         <div class="circle-image">
             <img src="img/icon2.jpg" alt="Icon 1">
         </div>
-        <h3>Heading</h3>
-        <p>Some representative placeholder content for the first column.</p>
+        <h3>ประเมินภาวะโภชนาการ</h3>
+        <p>แสดงผลภาวะโภชนาการจากการคำนวณน้ำหนัก และ ส่วนสูงในเด็ก พร้อมให้คำแนะนำในการเลี้ยงดูเด็ก</p>
     </div>
     <div class="column">
         <div class="circle-image">
             <img src="img/icon5.jpg" alt="Icon 2">
         </div>
-        <h3>Heading</h3>
-        <p>Another exciting bit of representative placeholder content.</p>
+        <h3>คำแนะนำในการเลี้ยงดูเด็ก</h3>
+        <p>ให้คำแนะนำในการเลี้ยงดูเด็กในแต่ละภาวะโภชนาการ เนื้อหาที่ได้มาจากสมุดบันทึกสุขภาพแม่ และ เด็ก 
+            แต่เว็บของเรานั้นสามารถเข้าถึงข้อมูลได้ง่าย และ ตรงประเด็นกว่าสมุดบันทึกสุขภาพแม่ และ เด็ก 
+        </p>
     </div>
     <div class="column">
         <div class="circle-image">
             <img src="img/icon4.jpg" alt="Icon 3">
         </div>
-        <h3>Heading</h3>
-        <p>And lastly this, the third column of representative placeholder content.</p>
+        <h3>ข้อมูลวัคซีน</h3>
+        <p>แสดงข้อมูลประวัติวัคซีนที่ได้การฉีด แสดงรายละเอียดของข้อมูลในแต่ละชนิด 
+            สามารถดูวันนัดการฉีดวัคซีน สถานที่การเข้ารํบการฉีดวัคซีน
+        และ สามารถแจ้งเตือนการฉีดวัคซีนได้</p>
     </div>
 </div>
 
 
 
 <div class="featurette">
+<h2>เว็บแอปพลิเคชันของเราส่งผลต่อผลประโยชน์อะไรต่อเด็กบ้าง</h2>
     <div class="featurette-item">
         <div class="featurette-text">
-            <h2>First featurette heading. It’ll blow your mind.</h2>
-            <p>Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+            <h2>เด็กๆสามารถทำกิจกรรมต่างๆร่วมกับผู้อื่นในสังคมได้อย่างแข็งแรงสมบูรณ์ มีภูมิคุ้มกันไม่เจ็บป่วยได้ง่าย</h2>
         </div>
         <div class="featurette-image">
             <img src="img/img7.jpg" alt="500x500 placeholder image">
@@ -76,8 +82,8 @@ session_start();
             <img src="img/img8.jpg" alt="500x500 placeholder image">
         </div>
         <div class="featurette-text">
-            <h2>Oh yeah, it’s that good. See for yourself.</h2>
-            <p>Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+            <h2>สร้างความสุข และ ความสัมพันธ์ในครอบครัวที่ดีในการดูแลเด็กให้ร่างการแข็งแรงสมบูรณ์</h2>
+            <p></p>
         </div>
     </div>
 
@@ -85,8 +91,7 @@ session_start();
 
     <div class="featurette-item">
         <div class="featurette-text">
-            <h2>And lastly, this one. Checkmate.</h2>
-            <p>And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
+            <h2>ด้วยภาวะโภชนาการที่แข็งแรงสมบูรณ์ทำให้เด็กสามารถเติบโตได้อย่างแข็งแรงสมบูรณ์ และ มีพัฒนาการที่ดี</h2>
         </div>
         <div class="featurette-image">
             <img src="img/img9.jpg" alt="500x500 placeholder image">

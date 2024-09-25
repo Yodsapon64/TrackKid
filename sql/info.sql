@@ -1,5 +1,5 @@
 CREATE TABLE info (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     DadFirstname VARCHAR(50),
     DadLastname VARCHAR(50),
     DadAge INT,
@@ -12,7 +12,7 @@ CREATE TABLE info (
     
     ParentFirstname VARCHAR(50),
     ParentLastname VARCHAR(50),
-    ParentStatus VARCHAR(20),
+    ParentStatus VARCHAR(50),
     ParentAge INT,
     ParentEmail VARCHAR(100),
     ParentTel VARCHAR(20),
@@ -20,12 +20,10 @@ CREATE TABLE info (
     KidFirstname VARCHAR(50),
     KidLastname VARCHAR(50),
     KidBirth DATE,
-    KidGender ENUM('Male', 'Female'),
+    KidGender VARCHAR(10),
     Address TEXT,
-    BloodType ENUM('A', 'B', 'AB', 'O'),
-    Weight DECIMAL(5,2),
-    KidHeight DECIMAL(5,2),
-    
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    BloodType VARCHAR(5),
+    Weight FLOAT,
+    KidHeight FLOAT,
+    UpdateDate DATETIME -- ฟิลด์สำหรับบันทึกวันที่อัพเดทข้อมูล
 );

@@ -1,86 +1,83 @@
 <?php
-include 'connect.php';
+include 'connect.php'; // เชื่อมต่อกับฐานข้อมูล
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
-    $DadFirstname = $_POST['DadFirstname'];
-    $DadLastname = $_POST['DadLastname'];
-    $DadAge = $_POST['DadAge'];
-    $DadTel = $_POST['DadTel'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่ามีการส่งข้อมูลด้วยวิธี POST
+    $DadFirstname = $_POST['DadFirstname']; // ชื่อบิดา
+    $DadLastname = $_POST['DadLastname']; // นามสกุลบิดา
+    $DadAge = $_POST['DadAge']; // อายุบิดา
+    $DadTel = $_POST['DadTel']; // เบอร์โทรบิดา
     
-    $MomFirstname = $_POST['MomFirstname'];
-    $MomLastname = $_POST['MomLastname'];
-    $MomAge = $_POST['MomAge'];
-    $MomTel = $_POST['MomTel'];
+    $MomFirstname = $_POST['MomFirstname']; // ชื่อมารดา
+    $MomLastname = $_POST['MomLastname']; // นามสกุลมารดา
+    $MomAge = $_POST['MomAge']; // อายุมารดา
+    $MomTel = $_POST['MomTel']; // เบอร์โทรมารดา
     
-    $ParentFirstname = $_POST['ParentFirstname'];
-    $ParentLastname = $_POST['ParentLastname'];
-    $ParentStatus = $_POST['ParentStatus'];
-    $ParentAge = $_POST['ParentAge'];
-    $ParentEmail = $_POST['ParentEmail'];
-    $ParentTel = $_POST['ParentTel'];
+    $ParentFirstname = $_POST['ParentFirstname']; // ชื่อผู้ปกครอง
+    $ParentLastname = $_POST['ParentLastname']; // นามสกุลผู้ปกครอง
+    $ParentStatus = $_POST['ParentStatus']; // สถานภาพผู้ปกครอง
+    $ParentAge = $_POST['ParentAge']; // อายุผู้ปกครอง
+    $ParentEmail = $_POST['ParentEmail']; // อีเมลผู้ปกครอง
+    $ParentTel = $_POST['ParentTel']; // เบอร์โทรผู้ปกครอง
     
-    $KidFirstname = $_POST['KidFirstname'];
-    $KidLastname = $_POST['KidLastname'];
-    $KidBirth = $_POST['KidBirth'];
-    $KidGender = $_POST['KidGender'];
-    $Address = $_POST['Address'];
-    $BloodType = $_POST['BloodType'];
-    $Weight = $_POST['weight'];
-    $KidHeight = $_POST['KidHeight'];
+    $KidFirstname = $_POST['KidFirstname']; // ชื่อเด็ก
+    $KidLastname = $_POST['KidLastname']; // นามสกุลเด็ก
+    $KidBirth = $_POST['KidBirth']; // วันเกิดเด็ก
+    $KidGender = $_POST['KidGender']; // เพศเด็ก
+    $Address = $_POST['Address']; // ที่อยู่
+    $BloodType = $_POST['BloodType']; // กรุ๊ปเลือด
+    $Weight = $_POST['Weight']; // น้ำหนัก
+    $KidHeight = $_POST['KidHeight']; // ส่วนสูง
+    $kidBirthDate = $_POST['KidBirth']; // รับข้อมูลวันที่เกิด
+    $birthDateBE = date('Y-m-d', strtotime($kidBirthDate . ' +543 years')); // แปลงเป็น พ.ศ.
 
-    // Convert date to correct format
-    $kidBirthDate = DateTime::createFromFormat('Y-m-d', $KidBirth);
-    if ($kidBirthDate) {
-        $KidBirth = $kidBirthDate->format('Y-m-d'); // Store in correct format
-    } else {
-        $KidBirth = '1970-01-01'; // Default value if error
-    }
+// คำนวณอายุ
+    $birthdate = new DateTime($birthdate);
+    $today = new DateTime('now');
+    $age = $today->diff($birthdate)->y; // ใช้ diff คำนวณอายุเป็นจำนวนปี
 
-    // Prepare SQL statement
-    $sql = "INSERT INTO info (DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel, ParentFirstname, ParentLastname, ParentStatus, ParentAge, ParentEmail, ParentTel, KidFirstname, KidLastname, KidBirth, KidGender, Address, BloodType, Weight, KidHeight) 
-            VALUES (:DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :ParentFirstname, :ParentLastname, :ParentStatus, :ParentAge, :ParentEmail, :ParentTel, :KidFirstname, :KidLastname, :KidBirth, :KidGender, :Address, :BloodType, :Weight, :KidHeight)";
-    
-    $stmt = $conn->prepare($sql);
+    $updateDate = date('Y-m-d H:i:s'); // รับวันที่ปัจจุบัน
 
-    // Bind parameters
+    // ปรับปรุง SQL คำสั่ง โดยใช้ตัวแปรที่ถูกต้อง
+    $sql = "INSERT INTO info (DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel, ParentFirstname, ParentLastname, ParentStatus, ParentAge, ParentEmail, ParentTel, KidFirstname, KidLastname, KidBirth, KidGender, Address, BloodType, Weight, KidHeight, UpdateDate)
+            VALUES (:DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :ParentFirstname, :ParentLastname, :ParentStatus, :ParentAge, :ParentEmail, :ParentTel, :KidFirstname, :KidLastname, :KidBirth, :KidGender, :Address, :BloodType, :Weight, :KidHeight, :UpdateDate)";
+
+    $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL
+
+    // ผูกค่าตัวแปรกับคำสั่ง SQL
     $stmt->bindParam(':DadFirstname', $DadFirstname);
     $stmt->bindParam(':DadLastname', $DadLastname);
     $stmt->bindParam(':DadAge', $DadAge);
     $stmt->bindParam(':DadTel', $DadTel);
-    
     $stmt->bindParam(':MomFirstname', $MomFirstname);
     $stmt->bindParam(':MomLastname', $MomLastname);
     $stmt->bindParam(':MomAge', $MomAge);
     $stmt->bindParam(':MomTel', $MomTel);
-    
     $stmt->bindParam(':ParentFirstname', $ParentFirstname);
     $stmt->bindParam(':ParentLastname', $ParentLastname);
     $stmt->bindParam(':ParentStatus', $ParentStatus);
     $stmt->bindParam(':ParentAge', $ParentAge);
     $stmt->bindParam(':ParentEmail', $ParentEmail);
     $stmt->bindParam(':ParentTel', $ParentTel);
-    
     $stmt->bindParam(':KidFirstname', $KidFirstname);
     $stmt->bindParam(':KidLastname', $KidLastname);
-    $stmt->bindParam(':KidBirth', $KidBirth);
+    $stmt->bindParam(':KidBirth', $birthDateBE); // แทนที่ KidBirth ด้วย birthDateBE
     $stmt->bindParam(':KidGender', $KidGender);
     $stmt->bindParam(':Address', $Address);
     $stmt->bindParam(':BloodType', $BloodType);
     $stmt->bindParam(':Weight', $Weight);
     $stmt->bindParam(':KidHeight', $KidHeight);
+    $stmt->bindParam(':UpdateDate', $updateDate); // เพิ่มการผูก UpdateDate ด้วย
 
-    // Execute the statement
-    if ($stmt->execute()) {
-        $lastId = $conn->lastInsertId();
-        // Redirect to nutritional.php with child ID
-        echo "<script>window.location.href = 'nutritional.php?id=" . $lastId . "';</script>";
+    if ($stmt->execute()) { // ถ้าสำเร็จ
+        $last_id = $conn->lastInsertId(); // รับ ID ล่าสุดที่เพิ่มเข้าไป
+        header("Location: nutritional.php?id=$last_id"); // เปลี่ยนเส้นทางไปยังหน้า nutritional.php พร้อมกับ ID
+        exit();
     } else {
-        // Display error
-        echo "<script>alert('เกิดข้อผิดพลาด: " . $stmt->errorInfo()[2] . "');</script>";
+        echo "Error inserting data."; // แสดงข้อความผิดพลาด
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="th">
@@ -148,24 +145,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="kidFemale" class="gender-label female">หญิง</label>
         </div>
 
-        <textarea id="address" name="Address" rows="4" placeholder="ที่อยู่ปัจจุบัน" class="full-width"></textarea>
-        <select name="BloodType" required class="full-width">
-            <option value="">กรุ๊ปเลือดของเด็ก</option>
+        <textarea id="address" name="Address" rows="5" placeholder="ที่อยู่ปัจจุบัน" class="full-width"></textarea>
+        <select name="BloodType" required>
+            <option value="">กรุณาเลือกกรุ๊ปเลือด</option>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="AB">AB</option>
             <option value="O">O</option>
         </select>
-        
-        <input type="number" name="weight" placeholder="น้ำหนักเด็ก (kg)" required>
-        <input type="number" name="KidHeight" placeholder="ส่วนสูงเด็ก (cm)" required>
+        <input type="number" name="Weight" placeholder="น้ำหนัก (kg)" required>
+        <input type="number" name="KidHeight" placeholder="ส่วนสูง (cm)" required>
 
-        <button type="submit">บันทึกข้อมูล</button>
+        <button type="submit" name = "sub">บันทึกข้อมูล</button>
     </form>
-</div>
-
-
-<footer class="footer">
+    </div>
+    <footer class="footer">
         <div class="footer-container">
             <p>© 2024 เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี. All rights reserved.</p>
             <ul class="footer-menu">
@@ -175,8 +169,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </ul>
         </div>
     </footer>
-    
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     flatpickr("#kidBirth", {
         dateFormat: "Y-m-d",
@@ -189,4 +183,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 </script>
 </body>
-</html>
+</html>  
