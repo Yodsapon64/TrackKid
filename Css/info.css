@@ -173,7 +173,7 @@ input[type="radio"]:checked + .gender-label {
 /* Submit button */
 /* ปุ่มบันทึกข้อมูล */
 .sub {
-    background-color: #ff790b; /* สีหลักของปุ่ม */
+    background-color: #31281d; /* สีหลักของปุ่ม */
     color: white;
     padding: 14px 20px;
     border: none;

@@ -156,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
         <input type="number" name="Weight" placeholder="น้ำหนัก (kg)" required>
         <input type="number" name="KidHeight" placeholder="ส่วนสูง (cm)" required>
 
-        <button type="submit" name = "sub">บันทึกข้อมูล</button>
+        <button type="submit" name = "sub" class = "sub">บันทึกข้อมูล</button>
     </form>
     </div>
     <footer class="footer">
