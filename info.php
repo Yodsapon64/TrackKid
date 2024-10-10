@@ -1,4 +1,7 @@
 <?php
+
+session_start(); 
+
 include 'connect.php'; // เชื่อมต่อกับฐานข้อมูล
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่ามีการส่งข้อมูลด้วยวิธี POST
@@ -85,10 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
         <ul class="menu">
             <li><a href="main.php">หน้าหลัก</a></li>
             <li><a href="about2.php">เกี่ยวกับเรา</a></li>
-            <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
-            <li><a href="#">ข้อมูลวัคซีน</a></li>
-            <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
-            <li><a href="logout.php" class="list-group-item list-group-item-danger" onclick="return confirm('ยืนยันการออกจากระบบ');">ออกจากระบบ</a></li>
+            <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
         </ul>
     </div>
 

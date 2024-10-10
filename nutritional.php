@@ -1,4 +1,7 @@
 <?php
+
+session_start(); 
+
 include 'connect.php'; // เชื่อมต่อกับฐานข้อมูล
 
 // ตรวจสอบว่ามี id ถูกส่งผ่าน URL หรือไม่
@@ -58,7 +61,7 @@ if (isset($_GET['id'])) {
             <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
             <li><a href="#">ข้อมูลวัคซีน</a></li>
             <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
-            <li><a href="logout.php" class="list-group-item list-group-item-danger" onclick="return confirm('ยืนยันการออกจากระบบ');">ออกจากระบบ</a></li>
+            <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
         </ul>
     </div>
 

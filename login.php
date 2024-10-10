@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,6 +78,7 @@
                 // สร้างตัวแปร session
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['email'] = $row['email'];
+                $_SESSION['username'] = $username;
 
                 // เรียกใช้ฟังก์ชันแสดง alert สำหรับการเข้าสู่ระบบที่ถูกต้อง
                 echo '<script>showSuccessAlert();</script>';
