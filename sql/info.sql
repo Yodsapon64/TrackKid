@@ -10,13 +10,6 @@ CREATE TABLE info (
     MomAge INT,
     MomTel VARCHAR(20),
     
-    ParentFirstname VARCHAR(50),
-    ParentLastname VARCHAR(50),
-    ParentStatus VARCHAR(50),
-    ParentAge INT,
-    ParentEmail VARCHAR(100),
-    ParentTel VARCHAR(20),
-    
     KidFirstname VARCHAR(50),
     KidLastname VARCHAR(50),
     KidBirth DATE,

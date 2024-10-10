@@ -64,7 +64,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     display: flex;
-    max-width: 600px; /* ปรับขนาดกรอบให้เล็กลง */
+    max-width: 700px; /* ปรับขนาดกรอบให้กว้างขึ้น */
     width: 100%;
 }
 
@@ -120,19 +120,13 @@ body {
     box-shadow: 0 0 8px rgba(255, 120, 11, 0.5);
 }
 
-.signup-right label {
-    font-size: 16px;
-    color: #444;
-    margin-bottom: 8px;
-}
-
 .signup-btn {
     padding: 12px 20px;
     border: none;
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-top: 10px;
     transition: background-color 0.3s ease, transform 0.3s ease;
     display: inline-block;
     text-align: center;

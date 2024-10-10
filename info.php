@@ -12,12 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $MomAge = $_POST['MomAge']; // อายุมารดา
     $MomTel = $_POST['MomTel']; // เบอร์โทรมารดา
     
-    $ParentFirstname = $_POST['ParentFirstname']; // ชื่อผู้ปกครอง
-    $ParentLastname = $_POST['ParentLastname']; // นามสกุลผู้ปกครอง
-    $ParentStatus = $_POST['ParentStatus']; // สถานภาพผู้ปกครอง
-    $ParentAge = $_POST['ParentAge']; // อายุผู้ปกครอง
-    $ParentEmail = $_POST['ParentEmail']; // อีเมลผู้ปกครอง
-    $ParentTel = $_POST['ParentTel']; // เบอร์โทรผู้ปกครอง
     
     $KidFirstname = $_POST['KidFirstname']; // ชื่อเด็ก
     $KidLastname = $_POST['KidLastname']; // นามสกุลเด็ก
@@ -38,8 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $updateDate = date('Y-m-d H:i:s'); // รับวันที่ปัจจุบัน
 
     // ปรับปรุง SQL คำสั่ง โดยใช้ตัวแปรที่ถูกต้อง
-    $sql = "INSERT INTO info (DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel, ParentFirstname, ParentLastname, ParentStatus, ParentAge, ParentEmail, ParentTel, KidFirstname, KidLastname, KidBirth, KidGender, Address, BloodType, Weight, KidHeight, UpdateDate)
-            VALUES (:DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :ParentFirstname, :ParentLastname, :ParentStatus, :ParentAge, :ParentEmail, :ParentTel, :KidFirstname, :KidLastname, :KidBirth, :KidGender, :Address, :BloodType, :Weight, :KidHeight, :UpdateDate)";
+    $sql = "INSERT INTO info (DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel, KidFirstname, KidLastname, KidBirth, KidGender, Address, BloodType, Weight, KidHeight, UpdateDate)
+            VALUES (:DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :KidFirstname, :KidLastname, :KidBirth, :KidGender, :Address, :BloodType, :Weight, :KidHeight, :UpdateDate)";
 
     $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL
 
@@ -52,12 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $stmt->bindParam(':MomLastname', $MomLastname);
     $stmt->bindParam(':MomAge', $MomAge);
     $stmt->bindParam(':MomTel', $MomTel);
-    $stmt->bindParam(':ParentFirstname', $ParentFirstname);
-    $stmt->bindParam(':ParentLastname', $ParentLastname);
-    $stmt->bindParam(':ParentStatus', $ParentStatus);
-    $stmt->bindParam(':ParentAge', $ParentAge);
-    $stmt->bindParam(':ParentEmail', $ParentEmail);
-    $stmt->bindParam(':ParentTel', $ParentTel);
     $stmt->bindParam(':KidFirstname', $KidFirstname);
     $stmt->bindParam(':KidLastname', $KidLastname);
     $stmt->bindParam(':KidBirth', $birthDateBE); // แทนที่ KidBirth ด้วย birthDateBE
@@ -121,15 +109,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
         <input type="text" name="MomLastname" placeholder="นามสกุลมารดา" required>
         <input type="number" name="MomAge" placeholder="อายุมารดา" required>
         <input type="tel" name="MomTel" placeholder="เบอร์โทรมารดา" required>
-
-        <!-- Guardian Section -->
-        <div class="section-title">ข้อมูลผู้ปกครอง</div>
-        <input type="text" name="ParentFirstname" placeholder="ชื่อผู้ปกครอง" required>
-        <input type="text" name="ParentLastname" placeholder="นามสกุลผู้ปกครอง" required>
-        <input type="text" name="ParentStatus" placeholder="สถานภาพผู้ปกครอง" required>
-        <input type="number" name="ParentAge" placeholder="อายุผู้ปกครอง" required>
-        <input type="email" name="ParentEmail" placeholder="อีเมลผู้ปกครอง" required>
-        <input type="tel" name="ParentTel" placeholder="เบอร์โทรผู้ปกครอง" required>
 
         <!-- Child Section -->
         <div class="section-title">ข้อมูลเด็ก</div>

@@ -21,6 +21,7 @@ session_start();
                 <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
                 <li><a href="#">ข้อมูลวัคซีน</a></li>
                 <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
+                <li><a href="profile.php">Hi! <?php echo $_SESSION['email']; ?></a></li>
                 <li><a href="logout.php" class="list-group-item list-group-item-danger" onclick="return confirm('ยืนยันการออกจากระบบ');">ออกจากระบบ</a></li>
             </ul>
         </div>
