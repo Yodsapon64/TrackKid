@@ -19,24 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $KidFirstname = $_POST['KidFirstname']; // ชื่อเด็ก
     $KidLastname = $_POST['KidLastname']; // นามสกุลเด็ก
     $KidBirth = $_POST['KidBirth']; // วันเกิดเด็ก
+    $KidAge  = $_POST['KidAge'];
     $KidGender = $_POST['KidGender']; // เพศเด็ก
     $Address = $_POST['Address']; // ที่อยู่
     $BloodType = $_POST['BloodType']; // กรุ๊ปเลือด
     $Weight = $_POST['Weight']; // น้ำหนัก
     $KidHeight = $_POST['KidHeight']; // ส่วนสูง
-    $kidBirthDate = $_POST['KidBirth']; // รับข้อมูลวันที่เกิด
-    $birthDateBE = date('Y-m-d', strtotime($kidBirthDate . ' +543 years')); // แปลงเป็น พ.ศ.
-
-// คำนวณอายุ
-    $birthdate = new DateTime($birthdate);
-    $today = new DateTime('now');
-    $age = $today->diff($birthdate)->y; // ใช้ diff คำนวณอายุเป็นจำนวนปี
 
     $updateDate = date('Y-m-d H:i:s'); // รับวันที่ปัจจุบัน
 
     // ปรับปรุง SQL คำสั่ง โดยใช้ตัวแปรที่ถูกต้อง
-    $sql = "INSERT INTO info (DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel, KidFirstname, KidLastname, KidBirth, KidGender, Address, BloodType, Weight, KidHeight, UpdateDate)
-            VALUES (:DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :KidFirstname, :KidLastname, :KidBirth, :KidGender, :Address, :BloodType, :Weight, :KidHeight, :UpdateDate)";
+    $sql = "INSERT INTO info (DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel, KidFirstname, KidLastname, KidBirth, KidAge, KidGender, Address, BloodType, Weight, KidHeight, UpdateDate)
+            VALUES (:DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :KidFirstname, :KidLastname, :KidBirth, :KidAge , :KidGender, :Address, :BloodType, :Weight, :KidHeight, :UpdateDate)";
 
     $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL
 
@@ -51,7 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $stmt->bindParam(':MomTel', $MomTel);
     $stmt->bindParam(':KidFirstname', $KidFirstname);
     $stmt->bindParam(':KidLastname', $KidLastname);
-    $stmt->bindParam(':KidBirth', $birthDateBE); // แทนที่ KidBirth ด้วย birthDateBE
+    $stmt->bindParam(':KidBirth', $KidBirth);
+    $stmt->bindParam(':KidAge', $KidAge);
     $stmt->bindParam(':KidGender', $KidGender);
     $stmt->bindParam(':Address', $Address);
     $stmt->bindParam(':BloodType', $BloodType);
@@ -114,7 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
         <div class="section-title">ข้อมูลเด็ก</div>
         <input type="text" name="KidFirstname" placeholder="ชื่อเด็ก" required>
         <input type="text" name="KidLastname" placeholder="นามสกุลเด็ก" required>
-        <input type="text" name="KidBirth" id="kidBirth" placeholder="วันเกิดเด็ก" required class="full-width">
+        <input type="date" name="KidBirth" id="kidBirth" placeholder="วันเกิดเด็ก" required class="full-width">
+        <input type="number" name="KidAge" id="KidAge" placeholder="อายุเด็ก" required>
         
         <label for="KidGender" class="full-width">เพศของเด็ก</label>
         <div class="gender-toggle">
@@ -150,16 +146,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script>
-    flatpickr("#kidBirth", {
-        dateFormat: "Y-m-d",
-        maxDate: new Date().fp_incr(-1) // Set max date to yesterday
-    });
-
-    function validateForm() {
-        // Implement form validation if needed
-        return true;
-    }
-</script>
 </body>
 </html>  

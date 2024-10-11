@@ -22,12 +22,7 @@ if (isset($_GET['id'])) {
         $kidFirstname = $row['KidFirstname'];
         $kidLastname = $row['KidLastname'];
         $kidBirth = $row['KidBirth'];
-        
-        // คำนวณอายุจากวันเกิด
-        $birthdate = new DateTime($kidBirth);
-        $today = new DateTime('now');
-        $age = $today->diff($birthdate)->y; // ใช้ diff คำนวณความแตกต่างเป็นจำนวนปี
-
+        $kidAge = $row['KidAge'];
         $kidGender = $row['KidGender'];
         $bloodType = $row['BloodType'];
         $weight = $row['Weight'];
@@ -68,14 +63,14 @@ if (isset($_GET['id'])) {
     <div class="content">
     <h1>ข้อมูลส่วนตัวของเด็ก</h1>
     <div class="info-card">
-        <p>ชื่อ: <?php echo htmlspecialchars($kidFirstname . ' ' . $kidLastname); ?></p>
-        <p>วันเกิด: <?php echo htmlspecialchars($kidBirth); ?></p>
-        <p>อายุ: <?php echo htmlspecialchars($age); ?> ปี</p>
-        <p>เพศ: <?php echo htmlspecialchars($kidGender); ?></p>
-        <p>กรุ๊ปเลือด: <?php echo htmlspecialchars($bloodType); ?></p>
-        <p>น้ำหนัก: <?php echo htmlspecialchars($weight); ?> กิโลกรัม</p>
-        <p>ส่วนสูง: <?php echo htmlspecialchars($height); ?> เซนติเมตร</p>
-        <p>ข้อมูลอัปเดตล่าสุด: <?php echo htmlspecialchars($row['UpdateDate']); ?></p>
+        <p>ชื่อ <?php echo htmlspecialchars($kidFirstname . ' ' . $kidLastname); ?></p>
+        <p>วันเกิด <?php echo htmlspecialchars($kidBirth); ?></p>
+        <p>อายุ <?php echo htmlspecialchars($kidAge); ?> ปี</p>
+        <p>เพศ <?php echo htmlspecialchars($kidGender); ?></p>
+        <p>กรุ๊ปเลือด <?php echo htmlspecialchars($bloodType); ?></p>
+        <p>น้ำหนัก <?php echo htmlspecialchars($weight); ?> กิโลกรัม</p>
+        <p>ส่วนสูง <?php echo htmlspecialchars($height); ?> เซนติเมตร</p>
+        <p>ข้อมูลอัปเดตล่าสุด <?php echo htmlspecialchars($row['UpdateDate']); ?></p>
     </div>
 </div>
 

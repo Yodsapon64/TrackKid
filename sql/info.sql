@@ -13,6 +13,7 @@ CREATE TABLE info (
     KidFirstname VARCHAR(50),
     KidLastname VARCHAR(50),
     KidBirth DATE,
+    KidAge int,
     KidGender VARCHAR(10),
     Address TEXT,
     BloodType VARCHAR(5),

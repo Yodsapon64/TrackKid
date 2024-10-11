@@ -1,5 +1,12 @@
 <?php
 session_start();
+include 'connect.php';
+$sql = "SELECT * FROM info"; // คุณอาจต้องแก้ไขให้ดึงข้อมูลที่ต้องการ
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$children = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
