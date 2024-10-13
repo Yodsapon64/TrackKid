@@ -4,5 +4,6 @@ CREATE TABLE `parent` (
     `ParentLastname` VARCHAR(50),
     `ParentStatus` VARCHAR(50),
     `ParentAge` INT,
-    `ParentTel` VARCHAR(20)
+    `ParentTel` VARCHAR(20),
+    `user_id` INT(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

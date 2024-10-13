@@ -4,13 +4,13 @@ session_start();
 include 'connect.php'; // เชื่อมต่อกับฐานข้อมูล
 
 // ตรวจสอบว่ามี id ถูกส่งผ่าน session หรือไม่
-if (isset($_SESSION['last_id'])) {
-    $id = $_SESSION['last_id'];
+if (isset($_SESSION['user_id'])) {
+    $id = $_SESSION['user_id'];
 
     // คำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล
-    $sql = "SELECT * FROM info WHERE info_id = :info_id";
+    $sql = "SELECT * FROM info WHERE user_id = :user_id";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':info_id', $id);
+    $stmt->bindParam(':user_id', $id);
     $stmt->execute();
 
     // ดึงข้อมูลจากฐานข้อมูล

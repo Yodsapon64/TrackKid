@@ -38,14 +38,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         // ถ้าไม่มี id แสดงว่าเป็นการเพิ่มข้อมูลใหม่
-        $sql = "INSERT INTO parent (ParentFirstname, ParentLastname, ParentStatus, ParentAge, ParentTel)
-                VALUES (:ParentFirstname, :ParentLastname, :ParentStatus, :ParentAge, :ParentTel)";
+        $sql = "INSERT INTO parent (user_id, ParentFirstname, ParentLastname, ParentStatus, ParentAge, ParentTel)
+                VALUES (:user_id, :ParentFirstname, :ParentLastname, :ParentStatus, :ParentAge, :ParentTel)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':ParentFirstname', $ParentFirstname);
         $stmt->bindParam(':ParentLastname', $ParentLastname);
         $stmt->bindParam(':ParentStatus', $ParentStatus);
         $stmt->bindParam(':ParentAge', $ParentAge);
         $stmt->bindParam(':ParentTel', $ParentTel);
+        $stmt->bindParam(':user_id', $_SESSION['user_id']);
+
 
         if ($stmt->execute()) {
             $last_id = $conn->lastInsertId();
@@ -83,10 +85,8 @@ if (isset($_GET['parent_id'])) {
             <a href="main.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
         </div>
         <ul class="menu">
-            <li><a href="main.php">หน้าหลัก</a></li>
-            <li><a href="about2.php">เกี่ยวกับเรา</a></li>
-            <li><a href="logout.php" onclick="return confirm('ยืนยันการออกจากระบบ');">ออกจากระบบ</a></li>
-            <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
+        <li><a href="main.php">หน้าหลัก</a></li>
+        <li><a href="logout.php" onclick="return confirm('ยืนยันการออกจากระบบ');">ออกจากระบบ</a></li>
         </ul>
     </div>
 

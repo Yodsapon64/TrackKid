@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $stmt->bindParam(':Weight', $Weight);
     $stmt->bindParam(':KidHeight', $KidHeight);
     $stmt->bindParam(':UpdateDate', $updateDate); // เพิ่มการผูก UpdateDate ด้วย
-    $stmt->bindParam(':user_id', $user_id); 
+    $stmt->bindParam(':user_id', $_SESSION['user_id']); 
 
     if ($stmt->execute()) { // ถ้าสำเร็จ
         $last_id = $conn->lastInsertId(); // รับ ID ล่าสุดที่เพิ่มเข้าไป
