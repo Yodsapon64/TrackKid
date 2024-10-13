@@ -13,11 +13,14 @@ session_start();
 
     <div class="topbar">
         <div class="logo">
-            <a href="mainphp">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
+            <a href="main.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
         </div>
         <ul class="menu">
         <li><a href="main.php">หน้าหลัก</a></li>
+        <li><a href="main.php">หน้าหลัก</a></li>
                 <li><a href="about2.php">เกี่ยวกับเรา</a></li>
+                <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
+                <li><a href="#">ข้อมูลวัคซีน</a></li>
                 <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
                 <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
         </ul>

@@ -1,5 +1,4 @@
 <?php
-
 session_start(); 
 
 include 'connect.php'; // เชื่อมต่อกับฐานข้อมูล
@@ -15,11 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $MomAge = $_POST['MomAge']; // อายุมารดา
     $MomTel = $_POST['MomTel']; // เบอร์โทรมารดา
     
-    
     $KidFirstname = $_POST['KidFirstname']; // ชื่อเด็ก
     $KidLastname = $_POST['KidLastname']; // นามสกุลเด็ก
     $KidBirth = $_POST['KidBirth']; // วันเกิดเด็ก
-    $KidAge  = $_POST['KidAge'];
+    $KidAge  = $_POST['KidAge']; // อายุเด็ก
     $KidGender = $_POST['KidGender']; // เพศเด็ก
     $Address = $_POST['Address']; // ที่อยู่
     $BloodType = $_POST['BloodType']; // กรุ๊ปเลือด
@@ -30,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
 
     // ปรับปรุง SQL คำสั่ง โดยใช้ตัวแปรที่ถูกต้อง
     $sql = "INSERT INTO info (DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel, KidFirstname, KidLastname, KidBirth, KidAge, KidGender, Address, BloodType, Weight, KidHeight, UpdateDate)
-            VALUES (:DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :KidFirstname, :KidLastname, :KidBirth, :KidAge , :KidGender, :Address, :BloodType, :Weight, :KidHeight, :UpdateDate)";
+            VALUES (:DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :KidFirstname, :KidLastname, :KidBirth, :KidAge, :KidGender, :Address, :BloodType, :Weight, :KidHeight, :UpdateDate)";
 
     $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL
 
@@ -56,7 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
 
     if ($stmt->execute()) { // ถ้าสำเร็จ
         $last_id = $conn->lastInsertId(); // รับ ID ล่าสุดที่เพิ่มเข้าไป
-        header("Location: nutritional.php?id=$last_id"); // เปลี่ยนเส้นทางไปยังหน้า nutritional.php พร้อมกับ ID
+        $_SESSION['last_id'] = $last_id;
+        echo "<script>alert('บันทึกข้อมูลสำเร็จ');</script>";
+        header("Location: nutritional.php"); // เปลี่ยนเส้นทางไปยังหน้า nutritional.php พร้อมกับ ID
         exit();
     } else {
         echo "Error inserting data."; // แสดงข้อความผิดพลาด
@@ -81,9 +81,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
             <a href="main.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
         </div>
         <ul class="menu">
-            <li><a href="main.php">หน้าหลัก</a></li>
-            <li><a href="about2.php">เกี่ยวกับเรา</a></li>
-            <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
+        <li><a href="main.php">หน้าหลัก</a></li>
+                <li><a href="about2.php">เกี่ยวกับเรา</a></li>
+                <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
+                <li><a href="#">ข้อมูลวัคซีน</a></li>
+                <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
+                <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
         </ul>
     </div>
 

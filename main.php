@@ -20,7 +20,7 @@ $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
 <div class="topbar">
             <div class="logo">
-                <a href="index.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
+                <a href="main.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
             </div>
             <ul class="menu">
                 <li><a href="main.php">หน้าหลัก</a></li>

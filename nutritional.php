@@ -1,12 +1,11 @@
 <?php
-
-session_start(); 
+session_start();
 
 include 'connect.php'; // เชื่อมต่อกับฐานข้อมูล
 
-// ตรวจสอบว่ามี id ถูกส่งผ่าน URL หรือไม่
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+// ตรวจสอบว่ามี id ถูกส่งผ่าน session หรือไม่
+if (isset($_SESSION['last_id'])) {
+    $id = $_SESSION['last_id'];
 
     // คำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล
     $sql = "SELECT * FROM info WHERE id = :id";
@@ -51,12 +50,12 @@ if (isset($_GET['id'])) {
             <a href="main.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
         </div>
         <ul class="menu">
-            <li><a href="main.php">หน้าหลัก</a></li>
-            <li><a href="about2.php">เกี่ยวกับเรา</a></li>
-            <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
-            <li><a href="#">ข้อมูลวัคซีน</a></li>
-            <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
-            <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
+        <li><a href="main.php">หน้าหลัก</a></li>
+                <li><a href="about2.php">เกี่ยวกับเรา</a></li>
+                <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
+                <li><a href="#">ข้อมูลวัคซีน</a></li>
+                <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
+                <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
         </ul>
     </div>
 
@@ -74,34 +73,33 @@ if (isset($_GET['id'])) {
     </div>
 </div>
 
-
     <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h2>เกี่ยวกับเรา</h2>
-                    <p>เว็บไซต์นี้ถูกพัฒนาขึ้นมาเพื่อให้ความรู้เกี่ยวกับ...</p>
-                </div>
-                <div class="footer-section">
-                    <h2>ลิงก์ที่เป็นประโยชน์</h2>
-                    <ul>
-                        <li><a href="#">กรมอนามัย</a></li>
-                        <li><a href="#">องค์การอนามัยโลก</a></li>
-                        <li><a href="#">สมาคมกุมารแพทย์ไทย</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section contact-form">
-                    <h2>ติดต่อเรา</h2>
-                    <form action="contact.php" method="POST">
-                        <input type="text" name="name" placeholder="ชื่อของคุณ">
-                        <input type="email" name="email" placeholder="อีเมลของคุณ">
-                        <textarea name="message" placeholder="ข้อความของคุณ"></textarea>
-                        <button type="submit">ส่งข้อความ</button>
-                    </form>
-                </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2>เกี่ยวกับเรา</h2>
+                <p>เว็บไซต์นี้ถูกพัฒนาขึ้นมาเพื่อให้ความรู้เกี่ยวกับ...</p>
             </div>
-            <div class="footer-bottom">
-                <p>Copyright &copy; 2024 - เว็บไซต์สุขภาพเด็ก</p>
+            <div class="footer-section">
+                <h2>ลิงก์ที่เป็นประโยชน์</h2>
+                <ul>
+                    <li><a href="#">กรมอนามัย</a></li>
+                    <li><a href="#">องค์การอนามัยโลก</a></li>
+                    <li><a href="#">สมาคมกุมารแพทย์ไทย</a></li>
+                </ul>
             </div>
-        </footer>
+            <div class="footer-section contact-form">
+                <h2>ติดต่อเรา</h2>
+                <form action="contact.php" method="POST">
+                    <input type="text" name="name" placeholder="ชื่อของคุณ">
+                    <input type="email" name="email" placeholder="อีเมลของคุณ">
+                    <textarea name="message" placeholder="ข้อความของคุณ"></textarea>
+                    <button type="submit">ส่งข้อความ</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright &copy; 2024 - เว็บไซต์สุขภาพเด็ก</p>
+        </div>
+    </footer>
 </body>
 </html>
