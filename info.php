@@ -23,12 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $BloodType = $_POST['BloodType']; // กรุ๊ปเลือด
     $Weight = $_POST['Weight']; // น้ำหนัก
     $KidHeight = $_POST['KidHeight']; // ส่วนสูง
+    $user_id = $_POST['user_id']; // ส่วนสูง
 
     $updateDate = date('Y-m-d H:i:s'); // รับวันที่ปัจจุบัน
 
     // ปรับปรุง SQL คำสั่ง โดยใช้ตัวแปรที่ถูกต้อง
-    $sql = "INSERT INTO info (DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel, KidFirstname, KidLastname, KidBirth, KidAge, KidGender, Address, BloodType, Weight, KidHeight, UpdateDate)
-            VALUES (:DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :KidFirstname, :KidLastname, :KidBirth, :KidAge, :KidGender, :Address, :BloodType, :Weight, :KidHeight, :UpdateDate)";
+    $sql = "INSERT INTO info (user_id, DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel, KidFirstname, KidLastname, KidBirth, KidAge, KidGender, Address, BloodType, Weight, KidHeight, UpdateDate)
+            VALUES (:user_id, :DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel, :KidFirstname, :KidLastname, :KidBirth, :KidAge, :KidGender, :Address, :BloodType, :Weight, :KidHeight, :UpdateDate)";
 
     $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL
 
@@ -51,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $stmt->bindParam(':Weight', $Weight);
     $stmt->bindParam(':KidHeight', $KidHeight);
     $stmt->bindParam(':UpdateDate', $updateDate); // เพิ่มการผูก UpdateDate ด้วย
+    $stmt->bindParam(':user_id', $user_id); 
 
     if ($stmt->execute()) { // ถ้าสำเร็จ
         $last_id = $conn->lastInsertId(); // รับ ID ล่าสุดที่เพิ่มเข้าไป

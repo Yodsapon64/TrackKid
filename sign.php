@@ -65,7 +65,7 @@ if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password
     $password = $_POST['password'];
 
     // ตรวจสอบ username ซ้ำ
-    $stmt = $conn->prepare("SELECT id FROM user WHERE username = :username");
+    $stmt = $conn->prepare("SELECT user_id FROM user WHERE username = :username");
     $stmt->execute(array(':username' => $username));
 
     if ($stmt->rowCount() > 0) {

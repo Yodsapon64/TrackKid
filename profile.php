@@ -4,7 +4,7 @@ include 'connect.php'; // เชื่อมต่อกับฐานข้อ
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
+    header("Location: profile.php");
     exit();
 }
 
@@ -16,10 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ParentStatus = $_POST['ParentStatus'];
     $ParentAge = $_POST['ParentAge'];
     $ParentTel = $_POST['ParentTel'];
+    $user_id = $_POST['user_id'];
 
     if (isset($_GET['id'])) {
         // ถ้ามีการกำหนด id แสดงว่าเป็นการแก้ไขข้อมูล
-        $id = $_GET['id'];
+        $parent_id = $_GET['parent_id'];
         $sql = "UPDATE parent SET ParentFirstname = :ParentFirstname, ParentLastname = :ParentLastname, ParentStatus = :ParentStatus, ParentAge = :ParentAge, ParentTel = :ParentTel WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':ParentFirstname', $ParentFirstname);
@@ -27,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':ParentStatus', $ParentStatus);
         $stmt->bindParam(':ParentAge', $ParentAge);
         $stmt->bindParam(':ParentTel', $ParentTel);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':parent_id', $parent_id);
 
         if ($stmt->execute()) {
             header("Location: main.php?id=$id");
@@ -57,12 +58,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // ถ้ามีการส่ง id มา แสดงว่าเป็นการแก้ไขข้อมูล
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_GET['parent_id'])) {
+    $id = $_GET['parent_id'];
     // ดึงข้อมูลจากฐานข้อมูลมาแสดงในฟอร์ม
-    $sql = "SELECT * FROM parent WHERE id = :id";
+    $sql = "SELECT * FROM parent WHERE parent_id = :parent_id";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':parent_id', $parent_id);
     $stmt->execute();
     $parent = $stmt->fetch(PDO::FETCH_ASSOC);
 }

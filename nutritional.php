@@ -8,9 +8,9 @@ if (isset($_SESSION['last_id'])) {
     $id = $_SESSION['last_id'];
 
     // คำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล
-    $sql = "SELECT * FROM info WHERE id = :id";
+    $sql = "SELECT * FROM info WHERE info_id = :info_id";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':info_id', $id);
     $stmt->execute();
 
     // ดึงข้อมูลจากฐานข้อมูล
@@ -18,6 +18,7 @@ if (isset($_SESSION['last_id'])) {
     
     // ตรวจสอบว่ามีข้อมูลหรือไม่
     if ($row) {
+        $user_id = $row['user_id'];
         $kidFirstname = $row['KidFirstname'];
         $kidLastname = $row['KidLastname'];
         $kidBirth = $row['KidBirth'];
@@ -50,7 +51,7 @@ if (isset($_SESSION['last_id'])) {
             <a href="main.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
         </div>
         <ul class="menu">
-        <li><a href="main.php">หน้าหลัก</a></li>
+            <li><a href="main.php">หน้าหลัก</a></li>
                 <li><a href="about2.php">เกี่ยวกับเรา</a></li>
                 <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
                 <li><a href="#">ข้อมูลวัคซีน</a></li>

@@ -65,7 +65,7 @@ session_start();
         $password = $_POST['password'];
 
         // ตรวจสอบ username และ password
-        $stmt = $conn->prepare("SELECT id, email, password FROM user WHERE username = :username");
+        $stmt = $conn->prepare("SELECT user_id, email, password FROM user WHERE username = :username");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -76,7 +76,7 @@ session_start();
             // ตรวจสอบรหัสผ่าน
             if (password_verify($password, $row['password'])) {
                 // สร้างตัวแปร session
-                $_SESSION['id'] = $row['id'];
+                $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['username'] = $username;
 
