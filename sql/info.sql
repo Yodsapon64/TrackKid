@@ -17,9 +17,9 @@ CREATE TABLE `info` (
     `BloodType` VARCHAR(5),
     `Weight` FLOAT,
     `KidHeight` FLOAT,
-    `UpdateDate` DATETIME, -- ฟิลด์สำหรับบันทึกวันที่อัพเดทข้อมูล
-    `user_id` INT(11),  -- ฟิลด์เพื่อเชื่อมกับตาราง user
-    `parent_id` INT(11), -- ฟิลด์เพื่อเชื่อมกับตาราง parent
+    `UpdateDate` DATETIME,
+    `user_id` INT(11),  
+    `parent_id` INT(11), 
     CONSTRAINT fk_user_id FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`),
     CONSTRAINT fk_parent_id FOREIGN KEY (`parent_id`) REFERENCES `parent`(`parent_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
