@@ -213,6 +213,7 @@ input[type="radio"]:checked + .gender-label {
     background-color: #353434;
 }
 
+
 /* Submit button */
 /* ปุ่มบันทึกข้อมูล */
 .sub {

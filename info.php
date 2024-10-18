@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เพิ่มข้อมูลเด็ก</title>
     <link rel="stylesheet" href="Css/info.css">
@@ -150,6 +150,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
         </div>
     </footer>
 
+    
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#KidBirth", {
+            dateFormat: "Y-m-d",
+            maxDate: "today" // จำกัดให้เลือกวันที่ไม่เกินวันนี้
+        });
+    </script>
 </body>
 </html>  

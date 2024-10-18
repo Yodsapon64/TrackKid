@@ -192,12 +192,12 @@ const nutritionChart = new Chart(ctx, {
                 label: '-2 SD',
                 data: sd2WeightsNeg,
                 borderColor: 'purple',
-                backgroundColor: 'rgba(128, 0, 128, 0.2)',  // สีม่วงโปร่งใส
+                backgroundColor: 'rgb(208, 235, 169)',  // สีม่วงโปร่งใส
                 fill: '-1',
             },
             // เพิ่มข้อมูลใหม่ที่เป็นจุดเดียว
             {
-                label: 'น้ำหนักของเด็ก',
+                label: 'ภาวะโภชนาการเด็ก',
                 data: [{x: height, y: weight}],  // เพิ่มจุดพล็อตตำแหน่งเดียว
                 borderColor: 'black',
                 backgroundColor: 'black',
