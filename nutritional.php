@@ -33,6 +33,7 @@ function evaluateNutritionStatus($weight, $height, $sd_data) {
     }
 }
 
+
 $sd_data = [
     ['height' => 45, '+3SD' => 3.3, '+2SD' => 3, '+1.5SD' => 2.8, 'Median' => 2.5, '-1.5SD' => 2.2, '-2SD' => 2],
     ['height' => 50, '+3SD' => 4.5, '+2SD' => 4, '+1.5SD' => 3.8, 'Median' => 3.4, '-1.5SD' => 3, '-2SD' => 2.9],
@@ -98,18 +99,18 @@ if (isset($_SESSION['user_id'])) {
 </head>
 <body>
 <div class="topbar">
-            <div class="logo">
-                <a href="main.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
-            </div>
-            <ul class="menu">
-                <li><a href="main.php">หน้าหลัก</a></li>
-                <li><a href="about2.php">เกี่ยวกับเรา</a></li>
-                <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
-                <li><a href="#">ข้อมูลวัคซีน</a></li>
-                <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
-                <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
-            </ul>
+        <div class="logo">
+            <a href="main.php">เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี</a>
         </div>
+        <ul class="menu">
+            <li><a href="main.php">หน้าหลัก</a></li>
+            <li><a href="about2.php">เกี่ยวกับเรา</a></li>
+            <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
+            <li><a href="#">ข้อมูลวัคซีน</a></li>
+            <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
+            <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
+        </ul>
+    </div>
 
     <div class="content">
         <h1>ข้อมูลส่วนตัวของเด็ก</h1>
@@ -122,10 +123,13 @@ if (isset($_SESSION['user_id'])) {
             <p>น้ำหนัก: <?php echo htmlspecialchars($weight); ?> กิโลกรัม</p>
             <p>ส่วนสูง: <?php echo htmlspecialchars($height); ?> เซนติเมตร</p>
             <p>ภาวะโภชนาการ: <strong><?php echo $nutritionStatus; ?></strong></p>
+            <!-- เพิ่มปุ่มแสดงคำแนะนำตามภาวะโภชนาการ -->
+            <a href="advice.php?status=<?php echo $nutritionStatus; ?>&name=<?php echo urlencode($kidFirstname . ' ' . $kidLastname); ?>&birth=<?php echo urlencode($kidBirth); ?>&age=<?php echo urlencode($kidAge); ?>&gender=<?php echo urlencode($kidGender); ?>&weight=<?php echo urlencode($weight); ?>&height=<?php echo urlencode($height); ?>" class="advice-button">ดูคำแนะนำ</a>
+
         </div>
 
         <h2>กราฟแสดงภาวะโภชนาการ</h2>
-        <canvas id="nutritionChart" width="100" height="50"></canvas>
+        <canvas id="nutritionChart" width="20" height="10"></canvas>
 
         <script>
         const sdData = <?php echo json_encode($sd_data); ?>;
