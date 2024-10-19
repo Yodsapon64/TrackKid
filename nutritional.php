@@ -129,7 +129,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
 
         <h2>กราฟแสดงภาวะโภชนาการ</h2>
-        <canvas id="nutritionChart" width="20" height="10"></canvas>
+        <canvas id="nutritionChart" width="60" height="30"></canvas>
 
         <script>
         const sdData = <?php echo json_encode($sd_data); ?>;

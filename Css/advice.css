@@ -1,131 +1,132 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+* { 
+    margin: 0; /* ยกเลิกค่าขอบ */
+    padding: 0; /* ยกเลิกค่าการเว้นช่อง */
+    box-sizing: border-box; /* ใช้กล่องขนาดที่รวมขอบและการเว้นช่อง */
+    font-family: 'Arial', sans-serif; /* ฟอนต์ที่ใช้ */
 }
 
 body {
-    background-color: #f5f5f5;
+    background-color: #f5f5f5; /* สีพื้นหลัง */
 }
 
 .topbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 14px;
-    background-color: rgb(54, 54, 54);
-    margin: 8px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex; /* ใช้ flexbox */
+    justify-content: space-between; /* จัดเรียงเนื้อหาทั้งสองด้าน */
+    padding: 14px; /* ระยะห่างภายใน */
+    background-color: rgb(54, 54, 54); /* สีพื้นหลังของ topbar */
+    margin: 8px; /* ระยะห่างภายนอก */
+    border-radius: 10px; /* มุมมน */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เงา */
 }
 
 .logo a {
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
+    text-decoration: none; /* ยกเลิกเส้นใต้ */
+    font-size: 20px; /* ขนาดฟอนต์ */
+    font-weight: bold; /* ตัวหนา */
+    color: #fff; /* สีฟอนต์ */
 }
 
 .menu {
-    display: flex;
-    list-style: none;
+    display: flex; /* ใช้ flexbox */
+    list-style: none; /* ยกเลิกสัญลักษณ์ในรายการ */
 }
 
 .menu li {
-    margin-left: 20px;
+    margin-left: 20px; /* ระยะห่างด้านซ้าย */
 }
 
 .menu li a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    transition: color 0.3s ease;
+    text-decoration: none; /* ยกเลิกเส้นใต้ */
+    color: #fff; /* สีฟอนต์ */
+    font-weight: bold; /* ตัวหนา */
+    transition: color 0.3s ease; /* เอฟเฟกต์เปลี่ยนสี */
 }
 
 .menu li a:hover {
-    color: #ff790b;
+    color: #ff790b; /* สีเมื่อชี้ */
 }
+
 .footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    font-size: 0.9em;
+    background-color: #333; /* สีพื้นหลังของ footer */
+    color: #fff; /* สีฟอนต์ */
+    padding: 20px 0; /* ระยะห่างภายใน */
+    font-size: 0.9em; /* ขนาดฟอนต์ */
 }
 
 .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: auto;
+    display: flex; /* ใช้ flexbox */
+    justify-content: space-between; /* จัดเรียงเนื้อหา */
+    align-items: flex-start; /* จัดเรียงแนวตั้ง */
+    flex-wrap: wrap; /* สามารถพับได้ */
+    max-width: 1200px; /* ความกว้างสูงสุด */
+    margin: auto; /* จัดกลาง */
 }
 
 .footer-section {
-    margin: 10px;
-    flex: 1;
-    min-width: 200px;
+    margin: 10px; /* ระยะห่างภายนอก */
+    flex: 1; /* ขยายเต็มพื้นที่ */
+    min-width: 200px; /* ความกว้างต่ำสุด */
 }
 
 .footer-section h2 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    font-size: 1.2em; /* ขนาดฟอนต์หัวข้อ */
+    margin-bottom: 10px; /* ระยะห่างด้านล่าง */
 }
 
 .footer-section p, .footer-section ul, .footer-section form {
-    font-size: 0.9em;
-    margin-bottom: 15px;
+    font-size: 0.9em; /* ขนาดฟอนต์ */
+    margin-bottom: 15px; /* ระยะห่างด้านล่าง */
 }
 
 .footer-section ul {
-    list-style: none;
-    padding: 0;
+    list-style: none; /* ยกเลิกสัญลักษณ์ในรายการ */
+    padding: 0; /* ยกเลิกการเว้นช่อง */
 }
 
 .footer-section ul li {
-    margin-bottom: 8px;
+    margin-bottom: 8px; /* ระยะห่างด้านล่างของแต่ละรายการ */
 }
 
 .footer-section ul li a {
-    text-decoration: none;
-    color: #ff790b;
-    transition: color 0.3s ease;
+    text-decoration: none; /* ยกเลิกเส้นใต้ */
+    color: #ff790b; /* สีฟอนต์ */
+    transition: color 0.3s ease; /* เอฟเฟกต์เปลี่ยนสี */
 }
 
 .footer-section ul li a:hover {
-    color: #e06805;
+    color: #e06805; /* สีเมื่อชี้ */
 }
 
 .footer-section form input,
 .footer-section form textarea {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 0.9em;
+    width: calc(100% - 20px); /* ความกว้าง */
+    padding: 10px; /* ระยะห่างภายใน */
+    margin-bottom: 10px; /* ระยะห่างด้านล่าง */
+    border: 1px solid #ddd; /* เส้นขอบ */
+    border-radius: 5px; /* มุมมน */
+    font-size: 0.9em; /* ขนาดฟอนต์ */
 }
 
 .footer-section form button {
-    background-color: #ff790b;
-    border: none;
-    padding: 10px 20px;
-    font-size: 0.9em;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    text-transform: uppercase;
-    font-weight: bold;
+    background-color: #ff790b; /* สีพื้นหลังปุ่ม */
+    border: none; /* ยกเลิกเส้นขอบ */
+    padding: 10px 20px; /* ระยะห่างภายใน */
+    font-size: 0.9em; /* ขนาดฟอนต์ */
+    color: #fff; /* สีฟอนต์ */
+    cursor: pointer; /* แสดงตัวชี้ */
+    border-radius: 5px; /* มุมมน */
+    transition: background-color 0.3s ease; /* เอฟเฟกต์เปลี่ยนสี */
+    text-transform: uppercase; /* ตัวอักษรเป็นตัวพิมพ์ใหญ่ */
+    font-weight: bold; /* ตัวหนา */
 }
 
 .footer-section form button:hover {
-    background-color: #e06805;
+    background-color: #e06805; /* สีเมื่อชี้ */
 }
 
 .footer-bottom {
-    text-align: center;
-    padding: 10px;
-    font-size: 0.8em;
-    background-color: #222;
+    text-align: center; /* จัดกลาง */
+    padding: 10px; /* ระยะห่างภายใน */
+    font-size: 0.8em; /* ขนาดฟอนต์ */
+    background-color: #222; /* สีพื้นหลัง */
 }
