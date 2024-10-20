@@ -40,6 +40,7 @@ if (isset($_GET['status'], $_GET['name'], $_GET['birth'], $_GET['age'], $_GET['g
 </div>
 
 <div class="content">
+    <div class="content-info">
     <h1>คำแนะนำภาวะโภชนาการ</h1>
     <p>ชื่อ: <?php echo htmlspecialchars($name); ?></p>
     <p>วันเกิด: <?php echo htmlspecialchars($birth); ?></p>
@@ -98,7 +99,7 @@ if (isset($_GET['status'], $_GET['name'], $_GET['birth'], $_GET['age'], $_GET['g
             }
         });
     </script>
-</div>
+
 
 <!-- แสดงคำแนะนำตามภาวะโภชนาการ -->
 <h2>คำแนะนำ</h2>

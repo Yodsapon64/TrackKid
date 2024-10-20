@@ -113,23 +113,24 @@ if (isset($_SESSION['user_id'])) {
     </div>
 
     <div class="content">
-        <h1>ข้อมูลส่วนตัวของเด็ก</h1>
         <div class="info-card">
-            <p>ชื่อ: <?php echo htmlspecialchars($kidFirstname . ' ' . $kidLastname); ?></p>
-            <p>วันเกิด: <?php echo htmlspecialchars($kidBirth); ?></p>
-            <p>อายุ: <?php echo htmlspecialchars($kidAge); ?> ปี</p>
-            <p>เพศ: <?php echo htmlspecialchars($kidGender); ?></p>
-            <p>กรุ๊ปเลือด: <?php echo htmlspecialchars($bloodType); ?></p>
-            <p>น้ำหนัก: <?php echo htmlspecialchars($weight); ?> กิโลกรัม</p>
-            <p>ส่วนสูง: <?php echo htmlspecialchars($height); ?> เซนติเมตร</p>
-            <p>ภาวะโภชนาการ: <strong><?php echo $nutritionStatus; ?></strong></p>
-            <!-- เพิ่มปุ่มแสดงคำแนะนำตามภาวะโภชนาการ -->
-            <a href="advice.php?status=<?php echo $nutritionStatus; ?>&name=<?php echo urlencode($kidFirstname . ' ' . $kidLastname); ?>&birth=<?php echo urlencode($kidBirth); ?>&age=<?php echo urlencode($kidAge); ?>&gender=<?php echo urlencode($kidGender); ?>&weight=<?php echo urlencode($weight); ?>&height=<?php echo urlencode($height); ?>" class="advice-button">ดูคำแนะนำ</a>
+        <h1>ข้อมูลส่วนตัวของเด็ก</h1>
+            <p>ชื่อ <?php echo htmlspecialchars($kidFirstname . ' ' . $kidLastname); ?></p>
+            <p>วันเกิด <?php echo htmlspecialchars($kidBirth); ?></p>
+            <p>อายุ <?php echo htmlspecialchars($kidAge); ?> ปี</p>
+            <p>เพศ <?php echo htmlspecialchars($kidGender); ?></p>
+            <p>กรุ๊ปเลือด <?php echo htmlspecialchars($bloodType); ?></p>
+            <p>น้ำหนัก <?php echo htmlspecialchars($weight); ?> กิโลกรัม</p>
+            <p>ส่วนสูง <?php echo htmlspecialchars($height); ?> เซนติเมตร</p>
+            <p>ภาวะโภชนาการ <strong><?php echo $nutritionStatus; ?></strong></p>
+            
+        
 
-        </div>
+        
 
         <h2>กราฟแสดงภาวะโภชนาการ</h2>
-        <canvas id="nutritionChart" width="60" height="30"></canvas>
+        <canvas id="nutritionChart" width="200" height="100"></canvas>
+        
 
         <script>
         const sdData = <?php echo json_encode($sd_data); ?>;
@@ -212,7 +213,7 @@ const nutritionChart = new Chart(ctx, {
                 showLine: false  // ไม่แสดงเส้น
             }
         ]
-    },
+    } ,
     options: {
         scales: {
             x: {
@@ -229,18 +230,17 @@ const nutritionChart = new Chart(ctx, {
                 ticks: {
                     stepSize: 1,  // ระดับน้ำหนักเพิ่มทีละ 1
                     beginAtZero: true,  // เริ่มจาก 0
-                    max: 30,  // ขยายกราฟไปจนถึง 30 กิโลกรัม
+                    max: 30, 
                 }
             }
         }
     }
 });
-
-
-
-
         
         </script>
+
+<a href="advice.php?status=<?php echo $nutritionStatus; ?>&name=<?php echo urlencode($kidFirstname . ' ' . $kidLastname); ?>&birth=<?php echo urlencode($kidBirth); ?>&age=<?php echo urlencode($kidAge); ?>&gender=<?php echo urlencode($kidGender); ?>&weight=<?php echo urlencode($weight); ?>&height=<?php echo urlencode($height); ?>" class="advice-button">ดูคำแนะนำ</a>
+
     </div>
 
     <footer class="footer">

@@ -75,33 +75,12 @@ body {
 /* Content Area */
 .content {
     display: flex;
-    justify-content: flex-end; /* จัดตำแหน่ง content ไปทางขวา */
-    padding: 20px;
+    justify-content: center; /* จัดตำแหน่ง content ไปทางขวา */
+    padding: 70px;
     margin: 0 auto;
     flex: 1; /* ทำให้ content ยืดหยุ่นตามขนาดหน้าจอ */
 }
 
-.info-card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    padding: 25px;
-    width: 45%; /* ปรับขนาดให้แคบลงเพื่อความสวยงาม */
-    margin-right: 20px; /* จัดชิดขวา */
-    font-size: 1.2em;
-    color: #333;
-}
-
-.info-card p {
-    font-size: 1.1em;
-    margin-bottom: 15px;
-    color: #555;
-}
-
-.info-card p span {
-    font-weight: bold;
-    color: #000;
-}
 
 /* การออกแบบ Footer */
 .footer {
