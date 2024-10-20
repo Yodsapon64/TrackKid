@@ -40,18 +40,18 @@ if (isset($_GET['status'], $_GET['name'], $_GET['birth'], $_GET['age'], $_GET['g
 </div>
 
 <div class="content">
-    <div class="content-info">
-    <h1>คำแนะนำภาวะโภชนาการ</h1>
-    <p>ชื่อ: <?php echo htmlspecialchars($name); ?></p>
-    <p>วันเกิด: <?php echo htmlspecialchars($birth); ?></p>
-    <p>อายุ: <?php echo htmlspecialchars($age); ?> ปี</p>
-    <p>เพศ: <?php echo htmlspecialchars($gender); ?></p>
-    <p>น้ำหนัก: <?php echo htmlspecialchars($weight); ?> กิโลกรัม</p>
-    <p>ส่วนสูง: <?php echo htmlspecialchars($height); ?> เซนติเมตร</p>
-    <p>ภาวะโภชนาการ: <strong><?php echo htmlspecialchars($nutritionStatus); ?></strong></p>
+        <div class="content-info">
+            <h1>คำแนะนำภาวะโภชนาการ</h1>
+            <p><strong>ชื่อ:</strong> <?php echo htmlspecialchars($name); ?></p>
+            <p><strong>วันเกิด:</strong> <?php echo htmlspecialchars($birth); ?></p>
+            <p><strong>อายุ:</strong> <?php echo htmlspecialchars($age); ?> ปี</p>
+            <p><strong>เพศ:</strong> <?php echo htmlspecialchars($gender); ?></p>
+            <p><strong>น้ำหนัก:</strong> <?php echo htmlspecialchars($weight); ?> กิโลกรัม</p>
+            <p><strong>ส่วนสูง:</strong> <?php echo htmlspecialchars($height); ?> เซนติเมตร</p>
+            <p><strong>ภาวะโภชนาการ:</strong> <span class="status"><?php echo htmlspecialchars($nutritionStatus); ?></span></p>
 
-    <h2>กราฟสัดส่วนอาหาร 5 หมู่ สำหรับภาวะโภชนาการ: <?php echo htmlspecialchars($nutritionStatus); ?></h2>
-    <canvas id="foodGroupChart" width="40" height="40"></canvas>
+            <h2>กราฟสัดส่วนอาหาร 5 หมู่ สำหรับภาวะโภชนาการ: <?php echo htmlspecialchars($nutritionStatus); ?></h2>
+            <canvas id="foodGroupChart" width="40" height="40"></canvas>
     
     <script>
         const ctx = document.getElementById('foodGroupChart').getContext('2d');

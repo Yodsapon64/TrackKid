@@ -73,14 +73,58 @@ body {
 }
 
 /* Content Area */
-.content {
+.container {
     display: flex;
-    justify-content: center; /* จัดตำแหน่ง content ไปทางขวา */
-    padding: 70px;
-    margin: 0 auto;
-    flex: 1; /* ทำให้ content ยืดหยุ่นตามขนาดหน้าจอ */
+    justify-content: space-around;
+    margin: 20px;
 }
 
+.profile-card, .chart-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 45%;
+}
+
+.profile-header, .chart-header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.profile-content p,{
+    margin-bottom: 10px;
+    color: #333;
+}
+
+
+.advice-button {
+    display: inline-block;
+    background-color: #4CAF50; /* สีพื้นหลัง */
+    color: white; /* สีตัวอักษร */
+    padding: 12px 24px; /* การเว้นระยะระหว่างขอบและข้อความภายในปุ่ม */
+    text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+    font-size: 16px; /* ขนาดตัวอักษร */
+    font-weight: bold; /* ทำให้ตัวอักษรหนา */
+    border-radius: 5px; /* มุมโค้งของปุ่ม */
+    text-decoration: none; /* เอาเส้นใต้ของลิงก์ออก */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* ใส่เงาใต้ปุ่ม */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* เพิ่มการเปลี่ยนแปลงที่ราบรื่นเมื่อ hover */
+}
+
+.advice-button:hover {
+    background-color: #45a049; /* เปลี่ยนสีเมื่อ hover */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); /* เพิ่มเงาเมื่อ hover */
+}
+
+.advice-button:active {
+    background-color: #3e8e41; /* เปลี่ยนสีเมื่อคลิก */
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); /* ลดขนาดเงาเมื่อคลิก */
+    transform: translateY(2px); /* กดปุ่มลงเล็กน้อยเมื่อคลิก */
+}
 
 /* การออกแบบ Footer */
 .footer {

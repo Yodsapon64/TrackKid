@@ -112,9 +112,12 @@ if (isset($_SESSION['user_id'])) {
         </ul>
     </div>
 
-    <div class="content">
-        <div class="info-card">
-        <h1>ข้อมูลส่วนตัวของเด็ก</h1>
+    <div class="container">
+    <div class="profile-card">
+    <div class="profile-header">
+        <h2>ข้อมูลส่วนตัวของเด็ก</h2>
+</div>
+<div class="profile-content">
             <p>ชื่อ <?php echo htmlspecialchars($kidFirstname . ' ' . $kidLastname); ?></p>
             <p>วันเกิด <?php echo htmlspecialchars($kidBirth); ?></p>
             <p>อายุ <?php echo htmlspecialchars($kidAge); ?> ปี</p>
@@ -122,13 +125,16 @@ if (isset($_SESSION['user_id'])) {
             <p>กรุ๊ปเลือด <?php echo htmlspecialchars($bloodType); ?></p>
             <p>น้ำหนัก <?php echo htmlspecialchars($weight); ?> กิโลกรัม</p>
             <p>ส่วนสูง <?php echo htmlspecialchars($height); ?> เซนติเมตร</p>
-            <p>ภาวะโภชนาการ <strong><?php echo $nutritionStatus; ?></strong></p>
-            
+            </div>
+        </div>
         
 
         
-
+        <div class="chart-card">
+        <div class="chart-header">
         <h2>กราฟแสดงภาวะโภชนาการ</h2>
+        </div>
+        <div class="chart-content">
         <canvas id="nutritionChart" width="200" height="100"></canvas>
         
 
@@ -239,8 +245,13 @@ const nutritionChart = new Chart(ctx, {
         
         </script>
 
-<a href="advice.php?status=<?php echo $nutritionStatus; ?>&name=<?php echo urlencode($kidFirstname . ' ' . $kidLastname); ?>&birth=<?php echo urlencode($kidBirth); ?>&age=<?php echo urlencode($kidAge); ?>&gender=<?php echo urlencode($kidGender); ?>&weight=<?php echo urlencode($weight); ?>&height=<?php echo urlencode($height); ?>" class="advice-button">ดูคำแนะนำ</a>
 
+
+<a href="advice.php?status=<?php echo $nutritionStatus; ?>&name=<?php echo urlencode($kidFirstname . ' ' . $kidLastname); ?>&birth=<?php echo urlencode($kidBirth); ?>&age=<?php echo urlencode($kidAge); ?>&gender=<?php echo urlencode($kidGender); ?>&weight=<?php echo $weight; ?>&height=<?php echo $height; ?>" class="advice-button"><p>ภาวะโภชนาการ <strong><?php echo $nutritionStatus; ?></strong></p> โปรดดูดูคำแนะนำ</a>
+
+
+</div>
+        </div>
     </div>
 
     <footer class="footer">
