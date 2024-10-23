@@ -118,13 +118,13 @@ if (isset($_SESSION['user_id'])) {
         <h2>ข้อมูลส่วนตัวของเด็ก</h2>
 </div>
 <div class="profile-content">
-            <p>ชื่อ <?php echo htmlspecialchars($kidFirstname . ' ' . $kidLastname); ?></p>
+            <h2><p>ชื่อ <?php echo htmlspecialchars($kidFirstname . ' ' . $kidLastname); ?></p>
             <p>วันเกิด <?php echo htmlspecialchars($kidBirth); ?></p>
             <p>อายุ <?php echo htmlspecialchars($kidAge); ?> ปี</p>
             <p>เพศ <?php echo htmlspecialchars($kidGender); ?></p>
             <p>กรุ๊ปเลือด <?php echo htmlspecialchars($bloodType); ?></p>
             <p>น้ำหนัก <?php echo htmlspecialchars($weight); ?> กิโลกรัม</p>
-            <p>ส่วนสูง <?php echo htmlspecialchars($height); ?> เซนติเมตร</p>
+            <p>ส่วนสูง <?php echo htmlspecialchars($height); ?> เซนติเมตร</p></h2>
             </div>
         </div>
         
@@ -247,7 +247,7 @@ const nutritionChart = new Chart(ctx, {
 
 
 
-<a href="advice.php?status=<?php echo $nutritionStatus; ?>&name=<?php echo urlencode($kidFirstname . ' ' . $kidLastname); ?>&birth=<?php echo urlencode($kidBirth); ?>&age=<?php echo urlencode($kidAge); ?>&gender=<?php echo urlencode($kidGender); ?>&weight=<?php echo $weight; ?>&height=<?php echo $height; ?>" class="advice-button"><p>ภาวะโภชนาการ <strong><?php echo $nutritionStatus; ?></strong></p> โปรดดูดูคำแนะนำ</a>
+<center><a href="advice.php?status=<?php echo $nutritionStatus; ?>&name=<?php echo urlencode($kidFirstname . ' ' . $kidLastname); ?>&birth=<?php echo urlencode($kidBirth); ?>&age=<?php echo urlencode($kidAge); ?>&gender=<?php echo urlencode($kidGender); ?>&weight=<?php echo $weight; ?>&height=<?php echo $height; ?>" class="advice-button"><p>ภาวะโภชนาการ <h2><strong><?php echo $nutritionStatus; ?></strong></h2></p> โปรดดูดูคำแนะนำ</a></center>
 
 
 </div>
