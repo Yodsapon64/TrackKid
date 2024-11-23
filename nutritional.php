@@ -58,7 +58,7 @@ if (isset($_SESSION['user_id'])) {
     $id = $_SESSION['user_id'];
 
     // คำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล
-    $sql = "SELECT * FROM info WHERE user_id = :user_id";
+    $sql = "SELECT * FROM kid WHERE user_id = :user_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':user_id', $id);
     $stmt->execute();
