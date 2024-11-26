@@ -1,22 +1,19 @@
-document.getElementById('kidBirth').addEventListener('change', function () {
-    var birthDate = new Date(this.value);
-    var today = new Date();
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
+// Apply flatpickr to the date input field
+flatpickr("#kidBirth", {
+    dateFormat: "d-m-Y", // Format day-month-year
+    locale: "th",        // Thai language
+    altInput: true,
+    altFormat: "d-m-Y",  // Format display
+    onReady: function(selectedDates, dateStr, instance) {
+        // Convert year to Buddhist Era
+        instance.currentYear += 543;
+        instance.redraw();
+    },
+    onChange: function(selectedDates, dateStr, instance) {
+        // Convert selected date year to BE
+        let selectedDate = new Date(selectedDates[0]);
+        let beYear = selectedDate.getFullYear() + 543;
+        let formattedDate = `${selectedDate.getDate()}-${selectedDate.getMonth()+1}-${beYear}`;
+        instance.altInput.value = formattedDate;
     }
-    document.getElementById('KidAge').value = age;
 });
-
-function validateForm() {
-    var DadFirstname = document.forms["info-form"]["DadFirstname"].value;
-    var MomFirstname = document.forms["info-form"]["MomFirstname"].value;
-    var KidFirstname = document.forms["info-form"]["KidFirstname"].value;
-    
-    if (DadFirstname == "" || MomFirstname == "" || KidFirstname == "") {
-        alert("กรุณากรอกข้อมูลที่จำเป็น");
-        return false;
-    }
-    return true;
-}

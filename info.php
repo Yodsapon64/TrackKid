@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
         <div class="section-title">ข้อมูลเด็ก</div>
         <input type="text" name="KidFirstname" placeholder="ชื่อเด็ก" required>
         <input type="text" name="KidLastname" placeholder="นามสกุลเด็ก" required>
-        <input type="date" name="KidBirth" id="kidBirth" placeholder="วันเกิดเด็ก" required class="full-width">
+        <input type="date" id="kidBirth" name="KidBirth" placeholder="วันเกิดเด็ก" class="full-width" required>
         <input type="number" name="KidAge" id="KidAge" placeholder="อายุเด็ก" required>
         
         <label for="KidGender" class="full-width">เพศของเด็ก</label>
@@ -152,11 +152,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
 
     
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script>
-        flatpickr("#KidBirth", {
-            dateFormat: "Y-m-d",
-            maxDate: "today" // จำกัดให้เลือกวันที่ไม่เกินวันนี้
-        });
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/th.js"></script>
 </body>
 </html>  

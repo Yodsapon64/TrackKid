@@ -49,7 +49,7 @@ body {
 .content {
     margin: 20px auto;
     padding: 20px;
-    max-width: 900px;
+    max-width: 1400px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -73,7 +73,7 @@ body {
 
 canvas {
     display: block;
-    margin: 20px ;
+    margin: 8px ;
 }
 
 /* ตกแต่งปุ่มต่างๆ */

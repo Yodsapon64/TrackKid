@@ -51,7 +51,7 @@ if (isset($_GET['status'], $_GET['name'], $_GET['birth'], $_GET['age'], $_GET['g
             <p><strong>ภาวะโภชนาการ:</strong> <span class="status"><?php echo htmlspecialchars($nutritionStatus); ?></span></p></h3>
 
             <h2>กราฟสัดส่วนอาหาร 5 หมู่ สำหรับภาวะโภชนาการ: <?php echo htmlspecialchars($nutritionStatus); ?></h2>
-            <canvas id="foodGroupChart" width="40" height="40"></canvas>
+            <canvas id="foodGroupChart" width="10" height="10"></canvas>
     
     <script>
         const ctx = document.getElementById('foodGroupChart').getContext('2d');

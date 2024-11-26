@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $updateDate = date('Y-m-d H:i:s'); // รับวันที่ปัจจุบัน
 
     // ปรับปรุง SQL คำสั่ง โดยใช้ตัวแปรที่ถูกต้อง
-    $sql = "INSERT INTO info (user_id, KidFirstname, KidLastname, KidBirth, KidAge, KidGender, Address, BloodType, Weight, KidHeight, UpdateDate)
+    $sql = "INSERT INTO kid (user_id, KidFirstname, KidLastname, KidBirth, KidAge, KidGender, Address, BloodType, Weight, KidHeight, UpdateDate)
             VALUES (:user_id, :KidFirstname, :KidLastname, :KidBirth, :KidAge, :KidGender, :Address, :BloodType, :Weight, :KidHeight, :UpdateDate)";
 
     $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL

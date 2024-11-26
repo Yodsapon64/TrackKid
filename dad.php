@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $MomTel = $_POST['MomTel']; // เบอร์โทรมารดา
     
     
-    $sql = "INSERT INTO info (user_id, DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel)
+    $sql = "INSERT INTO dad (user_id, DadFirstname, DadLastname, DadAge, DadTel, MomFirstname, MomLastname, MomAge, MomTel)
             VALUES (:user_id, :DadFirstname, :DadLastname, :DadAge, :DadTel, :MomFirstname, :MomLastname, :MomAge, :MomTel)";
 
     $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL

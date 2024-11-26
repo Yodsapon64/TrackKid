@@ -1,7 +1,20 @@
 <?php
 session_start();
 include 'connect.php';
-$sql = "SELECT * FROM info"; // คุณอาจต้องแก้ไขให้ดึงข้อมูลที่ต้องการ
+
+// ดึง user_id จาก session
+$user_id = $_SESSION['user_id'];
+
+// ตรวจสอบว่าผู้ใช้มีข้อมูลในตาราง parent หรือไม่
+$sql = "SELECT * FROM parent WHERE user_id = :user_id";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':user_id', $user_id);
+$stmt->execute();
+
+$profile_link = $stmt->rowCount() > 0 ? "view_profile.php" : "profile.php";
+
+
+$sql = "SELECT * FROM kid"; // คุณอาจต้องแก้ไขให้ดึงข้อมูลที่ต้องการ
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -28,7 +41,7 @@ $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
                 <li><a href="#">ข้อมูลวัคซีน</a></li>
                 <li><a href="dad.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
-                <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
+                <li><a href="<?php echo $profile_link; ?>">ยินดีต้อนรับ <?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
             </ul>
         </div>
         
