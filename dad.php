@@ -3,6 +3,16 @@ session_start();
 
 include 'connect.php'; // เชื่อมต่อกับฐานข้อมูล
 
+$user_id = $_SESSION['user_id'];
+
+// ตรวจสอบว่าผู้ใช้มีข้อมูลในตาราง parent หรือไม่
+$sql = "SELECT * FROM parent WHERE user_id = :user_id";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':user_id', $user_id);
+$stmt->execute();
+
+$profile_link = $stmt->rowCount() > 0 ? "view_profile.php" : "profile.php";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่ามีการส่งข้อมูลด้วยวิธี POST
     $DadFirstname = $_POST['DadFirstname']; // ชื่อบิดา
     $DadLastname = $_POST['DadLastname']; // นามสกุลบิดา
@@ -64,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
                 <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
                 <li><a href="#">ข้อมูลวัคซีน</a></li>
                 <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
-                <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
+                <li><a href="<?php echo $profile_link; ?>">ยินดีต้อนรับ <?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
         </ul>
     </div>
 
@@ -75,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
                 <img src="img/img4.jpg" alt="Sign Up Image">
             </div>
             <div class="signup-right">
-                <h2>กรุณากรอกข้อมูลส่วนตัวพ่อ และ แม่</h2>
+                <h2>กรุณากรอกข้อมูลส่วนตัวของพ่อ และ แม่</h2>
                 
                 <form action="" method="post">
                 <div class="section-title">ข้อมูลบิดา</div>

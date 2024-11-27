@@ -2,6 +2,28 @@
 session_start();
 include 'connect.php'; // เชื่อมต่อกับฐานข้อมูล
 
+
+$user_id = $_SESSION['user_id'];
+
+// ดึงข้อมูลผู้ปกครองจากตาราง parent
+$sqlParent = "SELECT ParentFirstname, ParentLastname, ParentStatus FROM parent WHERE user_id = :user_id";
+$stmtParent = $conn->prepare($sqlParent);
+$stmtParent->bindParam(':user_id', $user_id);
+$stmtParent->execute();
+$rowParent = $stmtParent->fetch(PDO::FETCH_ASSOC);
+
+// ตรวจสอบว่าพบข้อมูลผู้ปกครองหรือไม่
+$parentInfo = $rowParent ? $rowParent : ['ParentFirstname' => 'ไม่ระบุ', 'ParentLastname' => 'ไม่ระบุ', 'ParentStatus' => 'ไม่ระบุ'];
+
+// ตรวจสอบว่าผู้ใช้มีข้อมูลในตาราง parent หรือไม่
+$sql = "SELECT * FROM parent WHERE user_id = :user_id";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':user_id', $user_id);
+$stmt->execute();
+
+$profile_link = $stmt->rowCount() > 0 ? "view_profile.php" : "profile.php";
+
+
 // ฟังก์ชันสำหรับการประเมินภาวะโภชนาการ
 function evaluateNutritionStatus($weight, $height, $sd_data) {
     $closest_height = null;
@@ -108,7 +130,7 @@ if (isset($_SESSION['user_id'])) {
             <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
             <li><a href="#">ข้อมูลวัคซีน</a></li>
             <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
-            <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
+            <li><a href="<?php echo $profile_link; ?>">ยินดีต้อนรับ <?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
         </ul>
     </div>
 
@@ -125,6 +147,11 @@ if (isset($_SESSION['user_id'])) {
             <p>กรุ๊ปเลือด <?php echo htmlspecialchars($bloodType); ?></p>
             <p>น้ำหนัก <?php echo htmlspecialchars($weight); ?> กิโลกรัม</p>
             <p>ส่วนสูง <?php echo htmlspecialchars($height); ?> เซนติเมตร</p></h2>
+            <p><strong>อัพเดทข้อมูลโดย:</strong> 
+                <?php echo htmlspecialchars($parentInfo['ParentFirstname'] . ' ' . $parentInfo['ParentLastname']); ?> 
+                (<?php echo htmlspecialchars($parentInfo['ParentStatus']); ?>)
+            </p>
+            <p>วันที่อัปเดตข้อมูลล่าสุด: <?php echo htmlspecialchars($row['UpdateDate']); ?></p>
             </div>
         </div>
         
