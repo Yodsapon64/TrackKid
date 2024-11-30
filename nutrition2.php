@@ -21,7 +21,7 @@ session_start();
                 <li><a href="about2.php">เกี่ยวกับเรา</a></li>
                 <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
                 <li><a href="#">ข้อมูลวัคซีน</a></li>
-                <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
+                <li><a href="dad.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
                 <li><a href="profile.php">ยินดีต้อนรับ <?php echo $_SESSION['username']; ?></a></li>
         </ul>
     </div>

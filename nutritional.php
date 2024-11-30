@@ -108,6 +108,25 @@ if (isset($_SESSION['user_id'])) {
     echo "ไม่มี ID ถูกส่งมา";
     exit();
 }
+
+// ดึงข้อมูลเด็กทั้งหมดที่เชื่อมโยงกับผู้ใช้
+$stmtKids = $conn->prepare("SELECT kid_id, KidFirstname, KidLastname FROM kid WHERE user_id = :user_id");
+$stmtKids->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$stmtKids->execute();
+$kids = $stmtKids->fetchAll(PDO::FETCH_ASSOC);
+
+// ตรวจสอบข้อมูลเด็กที่เลือก
+$selected_kid = null;
+if (isset($_GET['kid_id'])) {
+    $kid_id = $_GET['kid_id'];
+    $stmtSelectedKid = $conn->prepare("SELECT * FROM kid WHERE kid_id = :kid_id AND user_id = :user_id");
+    $stmtSelectedKid->bindParam(':kid_id', $kid_id, PDO::PARAM_INT);
+    $stmtSelectedKid->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmtSelectedKid->execute();
+    $selected_kid = $stmtSelectedKid->fetch(PDO::FETCH_ASSOC);
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -129,31 +148,50 @@ if (isset($_SESSION['user_id'])) {
             <li><a href="about2.php">เกี่ยวกับเรา</a></li>
             <li><a href="nutritional.php">ข้อมูลภาวะโภชนาการ</a></li>
             <li><a href="#">ข้อมูลวัคซีน</a></li>
-            <li><a href="info.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
+            <li><a href="dad.php">เพิ่มข้อมูลผู้ใช้งาน</a></li>
             <li><a href="<?php echo $profile_link; ?>">ยินดีต้อนรับ <?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
         </ul>
     </div>
 
     <div class="container">
-    <div class="profile-card">
-    <div class="profile-header">
-        <h2>ข้อมูลส่วนตัวของเด็ก</h2>
-</div>
-<div class="profile-content">
-            <h2><p>ชื่อ <?php echo htmlspecialchars($kidFirstname . ' ' . $kidLastname); ?></p>
-            <p>วันเกิด <?php echo htmlspecialchars($kidBirth); ?></p>
-            <p>อายุ <?php echo htmlspecialchars($kidAge); ?> ปี</p>
-            <p>เพศ <?php echo htmlspecialchars($kidGender); ?></p>
-            <p>กรุ๊ปเลือด <?php echo htmlspecialchars($bloodType); ?></p>
-            <p>น้ำหนัก <?php echo htmlspecialchars($weight); ?> กิโลกรัม</p>
-            <p>ส่วนสูง <?php echo htmlspecialchars($height); ?> เซนติเมตร</p></h2>
-            <p><strong>อัพเดทข้อมูลโดย:</strong> 
+        <div class="profile-card">
+        <div class="profile-header">
+            <h2>ข้อมูลส่วนตัวเด็ก</h2>
+            </div>
+            <form method="GET" action="nutritional.php">
+                <label for="kid">เลือกเด็ก:</label>
+                <select name="kid_id" id="kid" onchange="this.form.submit()">
+                    <option value="">-- กรุณาเลือกเด็ก --</option>
+                    <?php foreach ($kids as $kid): ?>
+                        <option value="<?= $kid['kid_id'] ?>" <?= isset($selected_kid) && $selected_kid['kid_id'] == $kid['kid_id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($kid['KidFirstname'] . " " . $kid['KidLastname']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </form>
+
+            <!-- แสดงข้อมูลเด็ก -->
+            <?php if ($selected_kid): ?>
+                <h3>รายละเอียดข้อมูลส่วนตัวเด็ก</h3>
+                <p>ชื่อ: <?= htmlspecialchars($selected_kid['KidFirstname'] . " " . $selected_kid['KidLastname']) ?></p>
+                <p>วันเกิด: <?= htmlspecialchars($selected_kid['KidBirth']) ?></p>
+                <p>อายุ: <?= htmlspecialchars($selected_kid['KidAge']) ?> ปี</p>
+                <p>เพศ: <?= htmlspecialchars($selected_kid['KidGender']) ?></p>
+                <p>กรุ๊ปเลือด: <?= htmlspecialchars($selected_kid['BloodType']) ?></p>
+                <p>น้ำหนัก: <?= htmlspecialchars($selected_kid['Weight']) ?> กก.</p>
+                <p>ส่วนสูง: <?= htmlspecialchars($selected_kid['KidHeight']) ?> ซม.</p>
+                <p><strong>อัพเดทข้อมูลโดย:</strong> 
                 <?php echo htmlspecialchars($parentInfo['ParentFirstname'] . ' ' . $parentInfo['ParentLastname']); ?> 
                 (<?php echo htmlspecialchars($parentInfo['ParentStatus']); ?>)
             </p>
             <p>วันที่อัปเดตข้อมูลล่าสุด: <?php echo htmlspecialchars($row['UpdateDate']); ?></p>
-            </div>
+            <?php else: ?>
+                <p>กรุณาเลือกเด็กเพื่อแสดงข้อมูล</p>
+            <?php endif; ?>
+
+            <a href="kid.php" class="btn btn-primary">เพิ่มข้อมูลเด็ก</a>
         </div>
+    </div>
         
 
         
