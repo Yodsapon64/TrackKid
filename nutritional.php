@@ -1,34 +1,34 @@
 <?php
 session_start();
 include 'connect.php'; // เชื่อมต่อกับฐานข้อมูล
-
-
+ 
+ 
 $user_id = $_SESSION['user_id'];
-
+ 
 // ดึงข้อมูลผู้ปกครองจากตาราง parent
 $sqlParent = "SELECT ParentFirstname, ParentLastname, ParentStatus FROM parent WHERE user_id = :user_id";
 $stmtParent = $conn->prepare($sqlParent);
 $stmtParent->bindParam(':user_id', $user_id);
 $stmtParent->execute();
 $rowParent = $stmtParent->fetch(PDO::FETCH_ASSOC);
-
+ 
 // ตรวจสอบว่าพบข้อมูลผู้ปกครองหรือไม่
 $parentInfo = $rowParent ? $rowParent : ['ParentFirstname' => 'ไม่ระบุ', 'ParentLastname' => 'ไม่ระบุ', 'ParentStatus' => 'ไม่ระบุ'];
-
+ 
 // ตรวจสอบว่าผู้ใช้มีข้อมูลในตาราง parent หรือไม่
 $sql = "SELECT * FROM parent WHERE user_id = :user_id";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':user_id', $user_id);
 $stmt->execute();
-
+ 
 $profile_link = $stmt->rowCount() > 0 ? "view_profile.php" : "profile.php";
-
-
+ 
+ 
 // ฟังก์ชันสำหรับการประเมินภาวะโภชนาการ
 function evaluateNutritionStatus($weight, $height, $sd_data) {
     $closest_height = null;
     $closest_diff = PHP_INT_MAX;
-
+ 
     foreach ($sd_data as $data_point) {
         $diff = abs($data_point['height'] - $height);
         if ($diff < $closest_diff) {
@@ -36,7 +36,7 @@ function evaluateNutritionStatus($weight, $height, $sd_data) {
             $closest_diff = $diff;
         }
     }
-
+ 
     // ตรวจสอบว่าน้ำหนักเด็กอยู่ในช่วง SD ใด
     if ($weight > $closest_height['+3SD']) {
         return 'อ้วน';
@@ -54,8 +54,8 @@ function evaluateNutritionStatus($weight, $height, $sd_data) {
         return 'ผอมมาก';
     }
 }
-
-
+ 
+ 
 $sd_data = [
     ['height' => 45, '+3SD' => 3.3, '+2SD' => 3, '+1.5SD' => 2.8, 'Median' => 2.5, '-1.5SD' => 2.2, '-2SD' => 2],
     ['height' => 46, '+3SD' => 3.5, '+2SD' => 3.2, '+1.5SD' => 3, 'Median' => 2.6, '-1.5SD' => 2.3, '-2SD' => 2.2],
@@ -78,8 +78,20 @@ $sd_data = [
     ['height' => 63, '+3SD' => 8.8, '+2SD' => 8, '+1.5SD' => 7.7, 'Median' => 6.8, '-1.5SD' => 6, '-2SD' => 5.8],
     ['height' => 64, '+3SD' => 9, '+2SD' => 8.3, '+1.5SD' => 8, 'Median' => 7, '-1.5SD' => 6.3, '-2SD' => 6],
     ['height' => 65, '+3SD' => 9.5, '+2SD' => 8.5, '+1.5SD' => 8.3, 'Median' => 7.3, '-1.5SD' => 6.5, '-2SD' => 6.2],
+    ['height' => 66, '+3SD' => 9.8, '+2SD' => 8.9, '+1.5SD' => 8.5, 'Median' => 7.5, '-1.5SD' => 6.7, '-2SD' => 6.5],
+    ['height' => 67, '+3SD' => 10, '+2SD' => 9.2, '+1.5SD' => 8.8, 'Median' => 7.8, '-1.5SD' => 6.9, '-2SD' => 6.6],
+    ['height' => 68, '+3SD' => 10.3, '+2SD' => 9.5, '+1.5SD' => 9, 'Median' => 8, '-1.5SD' => 7, '-2SD' => 6.8],
+    ['height' => 69, '+3SD' => 10.5, '+2SD' => 9.8, '+1.5SD' => 9.3, 'Median' => 8.2, '-1.5SD' => 7.3, '-2SD' => 7],
     ['height' => 70, '+3SD' => 11, '+2SD' => 10, '+1.5SD' => 9.5, 'Median' => 8.5, '-1.5SD' => 7.5, '-2SD' => 7.3],
+    ['height' => 71, '+3SD' => 11.2, '+2SD' => 10.3, '+1.5SD' => 9.9, 'Median' => 8.6, '-1.5SD' => 7.6, '-2SD' => 7.4],
+    ['height' => 72, '+3SD' => 11.5, '+2SD' => 10.5, '+1.5SD' => 10, 'Median' => 8.9, '-1.5SD' => 7.9, '-2SD' => 7.5],
+    ['height' => 73, '+3SD' => 11.8, '+2SD' => 10.8, '+1.5SD' => 10.4, 'Median' => 9, '-1.5SD' => 8, '-2SD' => 7.8],
+    ['height' => 74, '+3SD' => 12, '+2SD' => 11, '+1.5SD' => 10.5, 'Median' => 9.4, '-1.5SD' => 8.3, '-2SD' => 7.9],
     ['height' => 75, '+3SD' => 12.4, '+2SD' => 11.3, '+1.5SD' => 10.8, 'Median' => 9.5, '-1.5SD' => 8.4, '-2SD' => 8.1],
+    ['height' => 76, '+3SD' => 12.5, '+2SD' => 11.5, '+1.5SD' => 11, 'Median' => 9.7, '-1.5SD' => 8.5, '-2SD' => 8.3],
+    ['height' => 77, '+3SD' => 12.9, '+2SD' => 11.8, '+1.5SD' => 11.2, 'Median' => 10, '-1.5SD' => 8.8, '-2SD' => 8.4],
+    ['height' => 78, '+3SD' => 13, '+2SD' => 12, '+1.5SD' => 11.5, 'Median' => 10.1, '-1.5SD' => 9, '-2SD' => 8.5],
+    ['height' => 79, '+3SD' => 13.4, '+2SD' => 12.2, '+1.5SD' => 11.6, 'Median' => 10.3, '-1.5SD' => 9.1, '-2SD' => 8.8],
     ['height' => 80, '+3SD' => 13.5, '+2SD' => 12.5, '+1.5SD' => 11.9, 'Median' => 10.5, '-1.5SD' => 9.3, '-2SD' => 8.9],
     ['height' => 85, '+3SD' => 14.9, '+2SD' => 13.5, '+1.5SD' => 13, 'Median' => 11.5, '-1.5SD' => 10.2, '-2SD' => 9.8],
     ['height' => 90, '+3SD' => 16.5, '+2SD' => 15, '+1.5SD' => 14.4, 'Median' => 12.8, '-1.5SD' => 11.3, '-2SD' => 10.9],
@@ -88,22 +100,22 @@ $sd_data = [
     ['height' => 105, '+3SD' => 21.5, '+2SD' => 19.8, '+1.5SD' => 19, 'Median' => 16.5, '-1.5SD' => 14.6, '-2SD' => 14],
     ['height' => 110, '+3SD' => 24, '+2SD' => 22, '+1.5SD' => 20.9, 'Median' => 18.3, '-1.5SD' => 16, '-2SD' => 15.4],
 ];
-
-
-
+ 
+ 
+ 
 // ตรวจสอบว่ามี id ถูกส่งผ่าน session หรือไม่
 if (isset($_SESSION['user_id'])) {
     $id = $_SESSION['user_id'];
-
+ 
     // คำสั่ง SQL เพื่อดึงข้อมูลจากฐานข้อมูล
     $sql = "SELECT * FROM kid WHERE user_id = :user_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':user_id', $id);
     $stmt->execute();
-
+ 
     // ดึงข้อมูลจากฐานข้อมูล
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+   
     if ($row) {
         $kidFirstname = $row['KidFirstname'];
         $kidLastname = $row['KidLastname'];
@@ -113,7 +125,7 @@ if (isset($_SESSION['user_id'])) {
         $bloodType = $row['BloodType'];
         $weight = (float)$row['Weight']; // น้ำหนัก
         $height = (float)$row['KidHeight']; // ส่วนสูง
-
+ 
         // ประเมินภาวะโภชนาการ
         $nutritionStatus = evaluateNutritionStatus($weight, $height, $sd_data);
     } else {
@@ -124,13 +136,13 @@ if (isset($_SESSION['user_id'])) {
     echo "ไม่มี ID ถูกส่งมา";
     exit();
 }
-
+ 
 // ดึงข้อมูลเด็กทั้งหมดที่เชื่อมโยงกับผู้ใช้
 $stmtKids = $conn->prepare("SELECT kid_id, KidFirstname, KidLastname FROM kid WHERE user_id = :user_id");
 $stmtKids->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmtKids->execute();
 $kids = $stmtKids->fetchAll(PDO::FETCH_ASSOC);
-
+ 
 // ตรวจสอบข้อมูลเด็กที่เลือก
 $selected_kid = null;
 if (isset($_GET['kid_id'])) {
@@ -141,10 +153,10 @@ if (isset($_GET['kid_id'])) {
     $stmtSelectedKid->execute();
     $selected_kid = $stmtSelectedKid->fetch(PDO::FETCH_ASSOC);
 }
-
-
+ 
+ 
 ?>
-
+ 
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -168,7 +180,7 @@ if (isset($_GET['kid_id'])) {
             <li><a href="<?php echo $profile_link; ?>">ยินดีต้อนรับ <?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
         </ul>
     </div>
-
+ 
     <div class="container">
         <div class="profile-card">
         <div class="profile-header">
@@ -185,7 +197,7 @@ if (isset($_GET['kid_id'])) {
                     <?php endforeach; ?>
                 </select>
             </form>
-
+ 
             <!-- แสดงข้อมูลเด็ก -->
             <?php if ($selected_kid): ?>
                 <h3>รายละเอียดข้อมูลส่วนตัวเด็ก</h3>
@@ -196,34 +208,34 @@ if (isset($_GET['kid_id'])) {
                 <p>กรุ๊ปเลือด: <?= htmlspecialchars($selected_kid['BloodType']) ?></p>
                 <p>น้ำหนัก: <?= htmlspecialchars($selected_kid['Weight']) ?> กก.</p>
                 <p>ส่วนสูง: <?= htmlspecialchars($selected_kid['KidHeight']) ?> ซม.</p>
-                <p><strong>อัพเดทข้อมูลโดย:</strong> 
-                <?php echo htmlspecialchars($parentInfo['ParentFirstname'] . ' ' . $parentInfo['ParentLastname']); ?> 
+                <p><strong>อัพเดทข้อมูลโดย:</strong>
+                <?php echo htmlspecialchars($parentInfo['ParentFirstname'] . ' ' . $parentInfo['ParentLastname']); ?>
                 (<?php echo htmlspecialchars($parentInfo['ParentStatus']); ?>)
             </p>
             <p>วันที่อัปเดตข้อมูลล่าสุด: <?php echo htmlspecialchars($row['UpdateDate']); ?></p>
             <?php else: ?>
                 <p>กรุณาเลือกเด็กเพื่อแสดงข้อมูล</p>
             <?php endif; ?>
-
+ 
             <a href="kid.php" class="btn btn-primary">เพิ่มข้อมูลเด็ก</a>
         </div>
     </div>
-        
-
-        
+       
+ 
+       
         <div class="chart-card">
         <div class="chart-header">
         <h2>กราฟแสดงภาวะโภชนาการ</h2>
         </div>
         <div class="chart-content">
         <canvas id="nutritionChart" width="200" height="100"></canvas>
-        
-
+       
+ 
         <script>
         const sdData = <?php echo json_encode($sd_data); ?>;
         const weight = <?php echo $weight; ?>;
         const height = <?php echo $height; ?>;
-        
+       
         const heights = sdData.map(point => point.height);
         const medianWeights = sdData.map(point => point.Median);
         const sd1_5Weights = sdData.map(point => point['+1.5SD']);
@@ -231,7 +243,7 @@ if (isset($_GET['kid_id'])) {
         const sd3Weights = sdData.map(point => point['+3SD']);
         const sd1_5WeightsNeg = sdData.map(point => point['-1.5SD']);
         const sd2WeightsNeg = sdData.map(point => point['-2SD']);
-        
+       
         const ctx = document.getElementById('nutritionChart').getContext('2d');
 const nutritionChart = new Chart(ctx, {
     type: 'line',
@@ -317,24 +329,24 @@ const nutritionChart = new Chart(ctx, {
                 ticks: {
                     stepSize: 1,  // ระดับน้ำหนักเพิ่มทีละ 1
                     beginAtZero: true,  // เริ่มจาก 0
-                    max: 30, 
+                    max: 30,
                 }
             }
         }
     }
 });
-        
+       
         </script>
-
-
-
+ 
+ 
+ 
 <center><a href="advice.php?status=<?php echo $nutritionStatus; ?>&name=<?php echo urlencode($kidFirstname . ' ' . $kidLastname); ?>&birth=<?php echo urlencode($kidBirth); ?>&age=<?php echo urlencode($kidAge); ?>&gender=<?php echo urlencode($kidGender); ?>&weight=<?php echo $weight; ?>&height=<?php echo $height; ?>" class="advice-button"><p>ภาวะโภชนาการ <h2><strong><?php echo $nutritionStatus; ?></strong></h2></p> โปรดดูดูคำแนะนำ</a></center>
-
-
+ 
+ 
 </div>
         </div>
     </div>
-
+ 
     <footer class="footer">
             <div class="footer-content">
                 <div class="footer-section">
