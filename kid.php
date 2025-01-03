@@ -12,29 +12,35 @@ $stmt->execute();
 
 $profile_link = $stmt->rowCount() > 0 ? "view_profile.php" : "profile.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่ามีการส่งข้อมูลด้วยวิธี POST
-    
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $KidFirstname = $_POST['KidFirstname'];
     $KidLastname = $_POST['KidLastname'];
     $KidBirth = $_POST['KidBirth'];
-    $KidAge  = $_POST['KidAge'];
     $KidGender = $_POST['KidGender'];
     $Address = $_POST['Address'];
     $BloodType = $_POST['BloodType'];
     $Weight = $_POST['Weight'];
     $KidHeight = $_POST['KidHeight'];
 
+    // คำนวณอายุจากวันเกิด
+    $birthDateObj = new DateTime($KidBirth);
+    $currentDate = new DateTime();
+    $KidAge = $currentDate->diff($birthDateObj)->y;
+
+    // คำนวณอายุจากวันเกิด
+    $birthDateObj = new DateTime($KidBirth);
+    $currentDate = new DateTime();
+    $KidAge = $currentDate->diff($birthDateObj)->y;
+
     // เพิ่มข้อมูลเด็กในฐานข้อมูล
     $sql = "INSERT INTO kid (user_id, KidFirstname, KidLastname, KidBirth, KidAge, KidGender, Address, BloodType, Weight, KidHeight)
             VALUES (:user_id, :KidFirstname, :KidLastname, :KidBirth, :KidAge, :KidGender, :Address, :BloodType, :Weight, :KidHeight)";
 
-    $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL
-
-    // ผูกค่าตัวแปรกับคำสั่ง SQL
+    $stmt = $conn->prepare($sql);
     $stmt->bindParam(':KidFirstname', $KidFirstname);
     $stmt->bindParam(':KidLastname', $KidLastname);
     $stmt->bindParam(':KidBirth', $KidBirth);
-    $stmt->bindParam(':KidAge', $KidAge);
+    $stmt->bindParam(':KidAge', $KidAge); // ใช้ค่าที่คำนวณแล้ว
     $stmt->bindParam(':KidGender', $KidGender);
     $stmt->bindParam(':Address', $Address);
     $stmt->bindParam(':BloodType', $BloodType);
@@ -42,16 +48,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
     $stmt->bindParam(':KidHeight', $KidHeight);
     $stmt->bindParam(':user_id', $_SESSION['user_id']);
 
-    if ($stmt->execute()) { // ถ้าสำเร็จ
-        $last_id = $conn->lastInsertId(); // รับ ID ล่าสุดที่เพิ่มเข้าไป
-        $_SESSION['last_id'] = $last_id;
+    if ($stmt->execute()) {
         echo "<script>alert('บันทึกข้อมูลสำเร็จ');</script>";
-        header("Location: nutritional.php"); // เปลี่ยนเส้นทางไปยังหน้า nutritional.php พร้อมกับ ID
+        header("Location: nutritional.php");
         exit();
     } else {
-        echo "Error inserting data."; // แสดงข้อความผิดพลาด
+        echo "Error inserting data.";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
                     <input type="text" name="KidFirstname" placeholder="ชื่อเด็ก" required>
                     <input type="text" name="KidLastname" placeholder="นามสกุลเด็ก" required>
                     <input type="date" name="KidBirth" id="kidBirth" placeholder="วันเกิดเด็ก" required class="full-width">
-                    <input type="number" name="KidAge" id="KidAge" placeholder="อายุเด็ก" required>
                     
                     <label for="KidGender" class="full-width">เพศของเด็ก</label>
                     <div class="gender-toggle">
@@ -126,5 +130,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่าม
             </ul>
         </div>
     </footer>
+
+
+    <script>
+        document.getElementById('kidBirth').addEventListener('change', function () {
+            const birthDate = new Date(this.value);
+            const today = new Date();
+            const age = today.getFullYear() - birthDate.getFullYear();
+            if (today < new Date(birthDate.setFullYear(today.getFullYear()))) {
+                age--;
+            }
+        });
+    </script>
 </body>
 </html>

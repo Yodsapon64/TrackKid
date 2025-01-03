@@ -129,7 +129,7 @@ if (isset($_SESSION['user_id'])) {
         // ประเมินภาวะโภชนาการ
         $nutritionStatus = evaluateNutritionStatus($weight, $height, $sd_data);
     } else {
-        echo "ไม่พบข้อมูล";
+        echo "ไม่พบข้อมูลของเด็ก!! กรุณากรอกเพิ่มข้อมูลผู้ใช้งานก่อนเข้าดูการประเมินภาวะโภชนาการของเด็ก";
         exit();
     }
 } else {
