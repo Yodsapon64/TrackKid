@@ -27,10 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $currentDate = new DateTime();
     $KidAge = $currentDate->diff($birthDateObj)->y;
 
-    // คำนวณอายุจากวันเกิด
-    $birthDateObj = new DateTime($KidBirth);
-    $currentDate = new DateTime();
-    $KidAge = $currentDate->diff($birthDateObj)->y;
 
     // เพิ่มข้อมูลเด็กในฐานข้อมูล
     $sql = "INSERT INTO kid (user_id, KidFirstname, KidLastname, KidBirth, KidAge, KidGender, Address, BloodType, Weight, KidHeight)
