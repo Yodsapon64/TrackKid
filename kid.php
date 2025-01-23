@@ -4,13 +4,21 @@ include 'connect.php'; // เชื่อมต่อกับฐานข้อ
 
 $user_id = $_SESSION['user_id'];
 
-// ตรวจสอบว่าผู้ใช้มีข้อมูลในตาราง parent หรือไม่
-$sql = "SELECT * FROM parent WHERE user_id = :user_id";
-$stmt = $conn->prepare($sql);
-$stmt->bindParam(':user_id', $user_id);
-$stmt->execute();
+// ดึง parent_id
+$sql_parent = "SELECT parent_id FROM parent WHERE user_id = :user_id";
+$stmt_parent = $conn->prepare($sql_parent);
+$stmt_parent->bindParam(':user_id', $user_id);
+$stmt_parent->execute();
+$parent = $stmt_parent->fetch(PDO::FETCH_ASSOC);
 
-$profile_link = $stmt->rowCount() > 0 ? "view_profile.php" : "profile.php";
+if ($parent) {
+    $parent_id = $parent['parent_id'];
+} else {
+    // กรณีที่ parent_id ไม่เจอ
+    echo "<script>alert('กรุณากรอกข้อมูลผู้ปกครองก่อนเพิ่มข้อมูลเด็ก');</script>";
+    header("Location: profile.php");
+    exit();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $KidFirstname = $_POST['KidFirstname'];
@@ -27,22 +35,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $currentDate = new DateTime();
     $KidAge = $currentDate->diff($birthDateObj)->y;
 
+    // กำหนดวันที่ปัจจุบันสำหรับ UpdateDate
+    $UpdateDate = $currentDate->format('Y-m-d H:i:s');
 
     // เพิ่มข้อมูลเด็กในฐานข้อมูล
-    $sql = "INSERT INTO kid (user_id, KidFirstname, KidLastname, KidBirth, KidAge, KidGender, Address, BloodType, Weight, KidHeight)
-            VALUES (:user_id, :KidFirstname, :KidLastname, :KidBirth, :KidAge, :KidGender, :Address, :BloodType, :Weight, :KidHeight)";
+    $sql = "INSERT INTO kid (user_id, parent_id, KidFirstname, KidLastname, KidBirth, KidAge, KidGender, Address, BloodType, Weight, KidHeight, UpdateDate)
+            VALUES (:user_id, :parent_id, :KidFirstname, :KidLastname, :KidBirth, :KidAge, :KidGender, :Address, :BloodType, :Weight, :KidHeight, :UpdateDate)";
 
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':KidFirstname', $KidFirstname);
     $stmt->bindParam(':KidLastname', $KidLastname);
     $stmt->bindParam(':KidBirth', $KidBirth);
-    $stmt->bindParam(':KidAge', $KidAge); // ใช้ค่าที่คำนวณแล้ว
+    $stmt->bindParam(':KidAge', $KidAge);
     $stmt->bindParam(':KidGender', $KidGender);
     $stmt->bindParam(':Address', $Address);
     $stmt->bindParam(':BloodType', $BloodType);
     $stmt->bindParam(':Weight', $Weight);
     $stmt->bindParam(':KidHeight', $KidHeight);
-    $stmt->bindParam(':user_id', $_SESSION['user_id']);
+    $stmt->bindParam(':UpdateDate', $UpdateDate);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->bindParam(':parent_id', $parent_id);
 
     if ($stmt->execute()) {
         echo "<script>alert('บันทึกข้อมูลสำเร็จ');</script>";
@@ -52,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error inserting data.";
     }
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="th">

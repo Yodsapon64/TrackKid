@@ -177,8 +177,7 @@ if (isset($_GET['kid_id'])) {
     $stmtSelectedKid->execute();
     $selected_kid = $stmtSelectedKid->fetch(PDO::FETCH_ASSOC);
 }
- 
- 
+
 ?>
  
 <!DOCTYPE html>
@@ -207,22 +206,24 @@ if (isset($_GET['kid_id'])) {
  
     <div class="container">
         <div class="profile-card">
-        <div class="profile-header">
-            <h2>ข้อมูลส่วนตัวเด็ก</h2>
+            <div class="profile-header">
+                <h2>ข้อมูลส่วนตัวเด็ก</h2>
             </div>
-            <form method="GET" action="nutritional.php">
+
+            <!-- ฟอร์มเลือกเด็ก -->
+            <form method="GET" action="kid.php">
                 <label for="kid">เลือกเด็ก:</label>
                 <select name="kid_id" id="kid" onchange="this.form.submit()">
                     <option value="">-- กรุณาเลือกเด็ก --</option>
                     <?php foreach ($kids as $kid): ?>
-                        <option value="<?= $kid['kid_id'] ?>" <?= isset($selected_kid) && $selected_kid['kid_id'] == $kid['kid_id'] ? 'selected' : '' ?>>
+                        <option value="<?= $kid['kid_id'] ?>" <?= isset($kid_id) && $kid_id == $kid['kid_id'] ? 'selected' : '' ?>>
                             <?= htmlspecialchars($kid['KidFirstname'] . " " . $kid['KidLastname']) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
             </form>
- 
-            <!-- แสดงข้อมูลเด็ก -->
+
+            <!-- แสดงข้อมูลเด็กที่เลือก -->
             <?php if ($selected_kid): ?>
                 <h3>รายละเอียดข้อมูลส่วนตัวเด็ก</h3>
                 <p>ชื่อ: <?= htmlspecialchars($selected_kid['KidFirstname'] . " " . $selected_kid['KidLastname']) ?></p>
@@ -233,17 +234,18 @@ if (isset($_GET['kid_id'])) {
                 <p>น้ำหนัก: <?= htmlspecialchars($selected_kid['Weight']) ?> กก.</p>
                 <p>ส่วนสูง: <?= htmlspecialchars($selected_kid['KidHeight']) ?> ซม.</p>
                 <p><strong>อัพเดทข้อมูลโดย:</strong>
-                <?php echo htmlspecialchars($parentInfo['ParentFirstname'] . ' ' . $parentInfo['ParentLastname']); ?>
-                (<?php echo htmlspecialchars($parentInfo['ParentStatus']); ?>)
+                <?= htmlspecialchars($parentInfo['ParentFirstname'] . ' ' . $parentInfo['ParentLastname']); ?>
+                (<?= htmlspecialchars($parentInfo['ParentStatus']); ?>)
             </p>
-            <p>วันที่อัปเดตข้อมูลล่าสุด: <?php echo htmlspecialchars($row['UpdateDate']); ?></p>
+            <p>วันที่อัปเดตข้อมูลล่าสุด: <?= htmlspecialchars($selected_kid['UpdateDate']); ?></p>
             <?php else: ?>
                 <p>กรุณาเลือกเด็กเพื่อแสดงข้อมูล</p>
             <?php endif; ?>
- 
+
             <a href="kid.php" class="btn btn-primary">เพิ่มข้อมูลเด็ก</a>
         </div>
     </div>
+
        
  
        

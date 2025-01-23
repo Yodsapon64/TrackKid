@@ -18,7 +18,7 @@
             <li><a href="about.php">เกี่ยวกับเรา</a></li>
         </ul>
     </div>
-
+ 
     <div class="signup-container">
         <div class="signup-card">
             <div class="signup-left">
@@ -27,7 +27,7 @@
             <div class="signup-right">
                 <h2>ลงทะเบียนสำหรับบัญชีใหม่</h2>
                 <p>สมัครสมาชิกเพื่อรับสิทธิประโยชน์แก่บุตรหลานของท่าน</p>
-                
+               
                 <form action="" method="post">
                     <input type="text" name="username" placeholder="ชื่อบัญชีของท่าน" required>
                     <input type="email" name="email" placeholder="Email" required>
@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-
+ 
     <footer class="footer">
         <div class="footer-container">
             <p>© 2024 เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี. All rights reserved.</p>
@@ -48,26 +48,26 @@
             </ul>
         </div>
     </footer>
-
+ 
     <?php
-
+ 
 if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) ){
     echo '
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">';
-
+ 
     // ตั้งค่าการเชื่อมต่อฐานข้อมูล
     require_once 'connect.php';
-
+ 
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-
+ 
     // ตรวจสอบ username ซ้ำ
     $stmt = $conn->prepare("SELECT user_id FROM user WHERE username = :username");
     $stmt->execute(array(':username' => $username));
-
+ 
     if ($stmt->rowCount() > 0) {
         echo '<script>
             setTimeout(function() {
@@ -83,14 +83,14 @@ if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password
     } else {
         // เข้ารหัสรหัสผ่านด้วย password_hash
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
+ 
         // บันทึกข้อมูลลงฐานข้อมูล
         $stmt = $conn->prepare("INSERT INTO user (username, email, password) VALUES (:username, :email, :password)");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR); //ใช้รหัสผ่านที่เข้ารหัสแล้ว
         $result = $stmt->execute();
-
+ 
         if($result) {
             echo '<script>
                 setTimeout(function() {
@@ -118,8 +118,8 @@ if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password
         $conn = null;
     }
 }
-
+ 
 ?>
-
+ 
 </body>
 </html>

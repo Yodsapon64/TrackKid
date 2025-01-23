@@ -1,5 +1,5 @@
-<?php 
-session_start(); 
+<?php
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,7 @@ session_start();
             <li><a href="about.php">เกี่ยวกับเรา</a></li>
         </ul>
     </div>
-
+ 
     <div class="login-container">
         <div class="login-card">
             <div class="login-left">
@@ -45,7 +45,7 @@ session_start();
             </div>
         </div>
     </div>
-
+ 
     <footer class="footer">
         <div class="footer-container">
             <p>© 2024 เว็บแอปพลิเคชันสำหรับติดตามการเจริญเติบโตของเด็กอายุ 0-12 ปี. All rights reserved.</p>
@@ -56,30 +56,30 @@ session_start();
             </ul>
         </div>
     </footer>
-
+ 
     <?php
     if(isset($_POST['username']) && isset($_POST['password']) ){
         require_once 'connect.php'; // ตรวจสอบให้แน่ใจว่ามีการเชื่อมต่อฐานข้อมูล
-
+ 
         $username = $_POST['username'];
         $password = $_POST['password'];
-
+ 
         // ตรวจสอบ username และ password
         $stmt = $conn->prepare("SELECT user_id, email, password FROM user WHERE username = :username");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->execute();
-
+ 
         // ถ้าเจอ username ในฐานข้อมูล
         if ($stmt->rowCount() == 1) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
+ 
             // ตรวจสอบรหัสผ่าน
             if (password_verify($password, $row['password'])) {
                 // สร้างตัวแปร session
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['username'] = $username;
-
+ 
                 // เรียกใช้ฟังก์ชันแสดง alert สำหรับการเข้าสู่ระบบที่ถูกต้อง
                 echo '<script>showSuccessAlert();</script>';
                 exit();
@@ -87,7 +87,7 @@ session_start();
                 // เรียกใช้ฟังก์ชันแสดง alert ถ้าเกิดข้อผิดพลาด
                 echo '<script>showErrorAlert();</script>';
             }
-
+ 
             $conn = null; // ปิดการเชื่อมต่อฐานข้อมูล
         }
     }

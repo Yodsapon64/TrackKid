@@ -1,13 +1,12 @@
 <?php
 session_start();
-include 'connect.php'; // เชื่อมต่อกับฐานข้อมูล
+include 'connect.php'; 
 
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
 
-// ตรวจสอบว่ามีการส่งข้อมูลด้วย POST หรือไม่
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ParentFirstname = $_POST['ParentFirstname'];
     $ParentLastname = $_POST['ParentLastname'];
@@ -16,25 +15,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ParentTel = $_POST['ParentTel'];
     $user_id = $_SESSION['user_id'];
 
-    // ตรวจสอบว่าข้อมูลในตารางมีอยู่แล้วหรือไม่
     $sql_check = "SELECT * FROM parent WHERE user_id = :user_id";
     $stmt_check = $conn->prepare($sql_check);
     $stmt_check->bindParam(':user_id', $user_id);
     $stmt_check->execute();
 
     if ($stmt_check->rowCount() > 0) {
-        // อัปเดตข้อมูล
-        $sql = "UPDATE parent 
-                SET ParentFirstname = :ParentFirstname, 
-                    ParentLastname = :ParentLastname, 
-                    ParentStatus = :ParentStatus, 
-                    ParentAge = :ParentAge, 
-                    ParentTel = :ParentTel 
-                WHERE user_id = :user_id";
+        $sql = "UPDATE parent SET ParentFirstname = :ParentFirstname, ParentLastname = :ParentLastname, ParentStatus = :ParentStatus, ParentAge = :ParentAge, ParentTel = :ParentTel WHERE user_id = :user_id";
     } else {
-        // เพิ่มข้อมูลใหม่
-        $sql = "INSERT INTO parent (user_id, ParentFirstname, ParentLastname, ParentStatus, ParentAge, ParentTel)
-                VALUES (:user_id, :ParentFirstname, :ParentLastname, :ParentStatus, :ParentAge, :ParentTel)";
+        $sql = "INSERT INTO parent (user_id, ParentFirstname, ParentLastname, ParentStatus, ParentAge, ParentTel) VALUES (:user_id, :ParentFirstname, :ParentLastname, :ParentStatus, :ParentAge, :ParentTel)";
     }
 
     $stmt = $conn->prepare($sql);
@@ -53,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="th">
